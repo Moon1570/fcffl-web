@@ -13,7 +13,7 @@ $message = "";
             <h1 class="heading-1 breadcrumbs-custom-title">How It Works</h1>
             <ul class="breadcrumbs-custom-path">
               <li><a href="index.html">Home</a></li>
-              <li class="active">Typography</li>
+              <li class="active">How it works</li>
             </ul>
           </div>
         </section>
@@ -68,7 +68,7 @@ $message = "";
             <div class="col-lg-10 col-xl-8">
                 
               <div class="row row-30">
-                <div class="col-md-6"><img src="images/fly.gif" alt="" width="770" height="480"/>
+                <div class="col-md-6"><img src="images/flight1.gif" alt="" width="770" height="480"/>
                 </div>
                 <div class="col-md-6">
                 <div class="box-minimal-header">
@@ -83,7 +83,7 @@ $message = "";
         </div>
       </section>
 
-      <section class="section" style="background-image:URL('images/flight2.gif');background-repeat: no-repeat;background-size: contain;background-attachment: fixed;">
+      <section class="section" style="background-image:URL('images/fly.gif');background-repeat: no-repeat;background-size: contain;background-attachment: fixed;">
       
       <div class="container container-bigger form-request-wrap" id="quote-form">
             <div class="row row-fix justify-content-sm-center justify-content-lg-end">

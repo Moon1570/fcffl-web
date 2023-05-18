@@ -8,7 +8,7 @@ $message = "";
 
 <!-- Page preloader-->
     <div class="page">
-      <section class="section" style="background-image:URL('images/flight2.gif');background-repeat: no-repeat;background-size: contain;background-attachment: fixed;">
+      <section class="section" style="background-image:URL('images/flight1.gif');background-repeat: no-repeat;background-size: contain;background-attachment: fixed;">
       
       <div class="container container-bigger form-request-wrap" id="quote-form">
             <div class="row row-fix justify-content-sm-center justify-content-lg-end">
