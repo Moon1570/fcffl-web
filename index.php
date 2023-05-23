@@ -12,9 +12,9 @@ $message = "";
       
       <div class="container container-bigger form-request-wrap" id="quote-form">
             <div class="row row-fix justify-content-sm-center justify-content-lg-end">
-              <div class="col-lg-12 col-xxl-5">
+              <div class="col-lg-12 col-xxl-6">
                 <div class="form-request form-request-modern  novi-background" style="background-color:#f9ebce;">
-                  <h4>Find your Tour</h4>
+
                   <!-- RD Mailform-->
                   
 
@@ -25,10 +25,12 @@ $message = "";
                         $departure_date = $_POST["departure_date"];
                         $arrival_airport = $_POST["arrival_airport"];
                         $arrival_date = $_POST["arrival_date"];
-                        $name = $_POST["name"];
+                        $fname = $_POST["fname"];
+                        $lname = $_POST["lname"];
                         $email = $_POST["email"];
                         $phone = $_POST["phone"];
                         $pax = $_POST["pax"];
+                        $flexibility = $_POST["flexibility"];
                         $note = $_POST["note"];
 
                         if($conn === false){
@@ -116,7 +118,7 @@ $message = "";
                         ?>
 
 
-                  <form style="margin-top: 10%; z-index:3;" class="" action="" method="post" >
+                  <form style="margin-top: 0%; z-index:3;" class="" action="" method="post" >
                     <div class="row row-20 row-fix">
                     <div class="col-sm-12" >
                         <label class="form-label-outside">Trip Type</label>
@@ -163,16 +165,61 @@ $message = "";
                       </div>
                       </div>
 
-                      
 
                       <div class="row">
+                        
+                        <div class="col-sm-6">
+                        <label class="form-label-outside">Adults</label>
+                        <div class="form-wrap form-wrap-modern">
+                          <input class="form-control input-append" id="form-element-stepper" type="number" min="0" max="300" value="1" name="pax">
+                        </div>
+                        </div>
+                        <div class="col-sm-6">
+                        <label class="form-label-outside">Flexibility</label>
+                        <div class="form-wrap form-wrap-modern">
+                          <select class="form-control" name="flexibility">
+                            <option value="0">Exact Dates</option>
+                            <option value="1">+/- 1 Day</option>
+                            <option value="2">+/- 2 Days</option>
+                            <option value="3">+/- 3 Days</option>
+                            <option value="4">+/- Week</option>
+                          </select>
+                        </div>
+                        </div>
+                      </div>
+
+                      
+
+                      
+                      <div class="col-lg-12">
+                        <br>
+                        <h4>OR Simply</h4>
+                        <p>Type Your Flight Request Here</p>
+                        <br>
+                        <div class="form-wrap form-wrap-modern">
+                          <textarea  class="form-control input-append" rows="3" cols="25" name="note" placeholder="Example: NYC-London me & my wife next weekend for 2 weeks most direct possible"></textarea>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-sm">
-                          <label class="form-label-outside">Name</label>
+                          <label class="form-label-outside">First Name</label>
                             <div class="form-wrap form-wrap-validation">
-                              <input class="form-control" name="name" type="text" required>
+                              <input class="form-control" name="fname" type="text" required>
 
                             </div>
                         </div>
+                        <div class="col-sm">
+                          <label class="form-label-outside">Last Name</label>
+                            <div class="form-wrap form-wrap-validation">
+                              <input class="form-control" name="lname" type="text" required>
+
+                            </div>
+                        </div>
+                      </div>
+                      <div class="row">
+
                         <div class="col-sm">
                           <label class="form-label-outside">Phone</label>
                             <div class="form-wrap form-wrap-validation">
@@ -180,8 +227,6 @@ $message = "";
 
                             </div>
                         </div>
-                      </div>
-                      <div class="row">
                         <div class="col-sm">
                           <label class="form-label-outside">Email</label>
                             <div class="form-wrap form-wrap-validation">
@@ -189,21 +234,15 @@ $message = "";
 
                             </div>
                         </div>
-                        <div class="col-sm">
-                        <label class="form-label-outside">Adults</label>
-                        <div class="form-wrap form-wrap-modern">
-                          <input class="form-control input-append" id="form-element-stepper" type="number" min="0" max="300" value="1" name="pax">
-                        </div>
-                        </div>
+                        
                       </div>
 
-                      <div class="col-lg-12">
-                        <label class="form-label-outside">Notes</label>
-                        <div class="form-wrap form-wrap-modern">
-                          <textarea  class="form-control input-append" rows="2" cols="25" name="note">My Note: </textarea>
-                        </div>
-                      </div>
-                    </div>
+
+
+
+
+
+
                     <div class="form-wrap form-button">
                       <button  class="button button-block button-secondary" name="SubmitButton" type="submit">Get a Quote</button>
                     </div>
