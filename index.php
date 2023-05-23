@@ -13,7 +13,7 @@ $message = "";
       <div class="container container-bigger form-request-wrap" id="quote-form">
             <div class="row row-fix justify-content-sm-center justify-content-lg-end">
               <div class="col-lg-12 col-xxl-5">
-                <div class="form-request form-request-modern bg-gray-lighter novi-background">
+                <div class="form-request form-request-modern  novi-background" style="background-color:#f9ebce;">
                   <h4>Find your Tour</h4>
                   <!-- RD Mailform-->
                   
@@ -136,17 +136,16 @@ $message = "";
 
                             </div>
                         </div>
+                        <div class="col-sm">
+                        <label class="form-label-outside">Departure Date</label>
+                        <div class="form-wrap form-wrap-validation">
+                          <input class="form-control" id="" name="departure_date" type="date" required>
+                        </div>
+                      </div>
                       </div>
                       
 
-                      <div class="col-sm-12 col-lg-6">
-                        <label class="form-label-outside">Departure Date</label>
-                        <div class="form-wrap form-wrap-validation">
-                          <input class="form-input" id="dateForm" name="departure_date" type="text" data-time-picker="date" required>
-                          <label class="form-label" for="dateForm">Choose the date</label>
-
-                        </div>
-                      </div>
+                      
 
                       <div class="row">
                         <div class="col-sm">
@@ -156,28 +155,28 @@ $message = "";
 
                             </div>
                         </div>
-                      </div>
-
-                      <div class="col-sm-12 col-lg-6">
+                        <div class="col-sm">
                         <label class="form-label-outside">Arrival Date</label>
                         <div class="form-wrap form-wrap-validation">
-                          <input class="form-input" id="dateForm" name="arrival_date" type="text" data-time-picker="date">
-                          <label class="form-label" for="dateForm">Choose the date</label>
+                          <input class="form-control" id="" name="arrival_date" type="date" >
                         </div>
                       </div>
+                      </div>
+
+                      
 
                       <div class="row">
                         <div class="col-sm">
                           <label class="form-label-outside">Name</label>
                             <div class="form-wrap form-wrap-validation">
-                              <input class="form-input" name="name" type="text" required>
+                              <input class="form-control" name="name" type="text" required>
 
                             </div>
                         </div>
                         <div class="col-sm">
                           <label class="form-label-outside">Phone</label>
                             <div class="form-wrap form-wrap-validation">
-                              <input class="form-input" name="phone" type="tel" required>
+                              <input class="form-control" name="phone" type="tel" required>
 
                             </div>
                         </div>
@@ -186,14 +185,14 @@ $message = "";
                         <div class="col-sm">
                           <label class="form-label-outside">Email</label>
                             <div class="form-wrap form-wrap-validation">
-                              <input class="form-input"  name="email" type="email" require>
+                              <input class="form-control"  name="email" type="email" require>
 
                             </div>
                         </div>
                         <div class="col-sm">
                         <label class="form-label-outside">Adults</label>
                         <div class="form-wrap form-wrap-modern">
-                          <input class="form-input input-append" id="form-element-stepper" type="number" min="0" max="300" value="1" name="pax">
+                          <input class="form-control input-append" id="form-element-stepper" type="number" min="0" max="300" value="1" name="pax">
                         </div>
                         </div>
                       </div>
@@ -201,7 +200,7 @@ $message = "";
                       <div class="col-lg-12">
                         <label class="form-label-outside">Notes</label>
                         <div class="form-wrap form-wrap-modern">
-                          <textarea  class="form-input input-append" rows="1" cols="25" name="note">My Note: </textarea>
+                          <textarea  class="form-control input-append" rows="2" cols="25" name="note">My Note: </textarea>
                         </div>
                       </div>
                     </div>
