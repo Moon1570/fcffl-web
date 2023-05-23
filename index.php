@@ -126,7 +126,7 @@ $message = "";
                         ?>
 
 
-                  <form style="margin-top: 0%; z-index:3;" class="" action="" method="post" >
+                  <form style="margin-top: 0%; z-index:3;" class="" action="" method="" >
                     <div class="row row-20 row-fix">
                     <div class="col-sm-12" >
                         <label class="form-label-outside">Trip Type</label>
@@ -142,14 +142,14 @@ $message = "";
                         <div class="col-sm">
                           <label class="form-label-outside">From</label>
                             <div class="form-wrap form-wrap-validation">
-                            <input type="text" id="dept_air" name="departure_airport" class="autocomplete form-control" placeholder="City name or airport code" required/>
+                            <input type="text" id="dept_air" name="departure_airport" class="autocomplete form-control" placeholder="City name or airport code" />
 
                             </div>
                         </div>
                         <div class="col-sm">
                         <label class="form-label-outside">Departure Date</label>
                         <div class="form-wrap form-wrap-validation">
-                          <input class="form-control" id="" name="departure_date" type="date" required>
+                          <input class="form-control" id="" name="departure_date" type="date" >
                         </div>
                       </div>
                       </div>
@@ -161,7 +161,7 @@ $message = "";
                         <div class="col-sm">
                           <label class="form-label-outside">To</label>
                             <div class="form-wrap form-wrap-validation">
-                            <input type="text" id="arrv_air" name="arrival_airport" class="autocomplete form-control" placeholder="City name or airport code" required/>
+                            <input type="text" id="arrv_air" name="arrival_airport" class="autocomplete form-control" placeholder="City name or airport code" />
 
                             </div>
                         </div>
@@ -214,14 +214,14 @@ $message = "";
                         <div class="col-sm">
                           <label class="form-label-outside">First Name</label>
                             <div class="form-wrap form-wrap-validation">
-                              <input class="form-control" name="fname" type="text" required>
+                              <input class="form-control" name="fname" type="text" >
 
                             </div>
                         </div>
                         <div class="col-sm">
                           <label class="form-label-outside">Last Name</label>
                             <div class="form-wrap form-wrap-validation">
-                              <input class="form-control" name="lname" type="text" required>
+                              <input class="form-control" name="lname" type="text" >
 
                             </div>
                         </div>
@@ -231,7 +231,7 @@ $message = "";
                         <div class="col-sm">
                           <label class="form-label-outside">Phone</label>
                             <div class="form-wrap form-wrap-validation">
-                              <input id="phone" class="form-control" name="phone" type="tel" required>
+                              <input id="phone" class="form-control" name="phone" type="tel" >
 
                             </div>
                         </div>
@@ -252,7 +252,7 @@ $message = "";
 
 
                     <div class="form-wrap form-button">
-                      <button  class="button button-block button-secondary" name="SubmitButton" type="submit">Get a Quote</button>
+                      <button  class="button button-block button-secondary" name="SubmitButton" type="" onclick="number();">Get a Quote</button>
                     </div>
                   </form> 
                   <p>        <?php echo $message; ?></p>
@@ -270,7 +270,7 @@ $message = "";
                       <div class="col-md-6 col-lg-5 col-xl-4 col-xxl-5">
                         <h3>unique Travel Insights</h3>
                         <div class="divider divider-decorate"></div>
-                        <p class="text-spacing-sm">Our team is ready to provide you with unique weekly travel insights that include photos, videos, and articles about untravelled tourist paths. We know everything about the places you’ve never been to!</p><a class="button button-default-outline button-nina button-sm" href="#">learn more</a>
+                        <p class="text-spacing-sm">Our team is ready to provide you with unique weekly travel insights that include photos, videos, and articles about untravelled tourist paths. We know everything about the places you've never been to!</p><a class="button button-default-outline button-nina button-sm" href="#">learn more</a>
                       </div>
                     </div>
                   </div>
@@ -450,7 +450,7 @@ $message = "";
                       </ul>
                     </div>
                     <div class="post-blog-caption-body">
-                      <h5><a class="post-blog-title" href="#">How to Plan Your Vacation in Advance and Why It’s Beneficial</a></h5>
+                      <h5><a class="post-blog-title" href="#">How to Plan Your Vacation in Advance and Why It's Beneficial</a></h5>
                     </div>
                     <div class="post-blog-caption-footer">
                       <time datetime="2019">Feb 27, 2019 at 6:53 pm</time><a class="post-comment" href="#"><span class="icon novi-icon icon-md-middle icon-gray-1 mdi mdi-comment"></span><span>12</span></a>
@@ -645,8 +645,27 @@ function settour(dept, arrv){
 </script>
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
 <script>
-  var input = document.querySelector("#phone");
+
+// Vanilla Javascript
+
+var input = document.querySelector("#phone");
   window.intlTelInput(input, {
     utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
   });
+  
+function number(){
+  
+  var iti = window.intlTelInputGlobals.getInstance(input);
+  if (iti.isValidNumber() == false) {
+      alert("Phone number is not valid");
+  }
+  // add the country code to the number
+  var text = iti.getSelectedCountryData().dialCode + input.value;
+
+  // set the number with the country code in the input field
+  document.getElementById("phone").value = text;
+  console.log(text);
+}
+
+
 </script>
