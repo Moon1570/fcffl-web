@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="css/fonts.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	  <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.css">
+
 	  <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 		<!--[if lt IE 10]>
     <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
@@ -109,21 +111,22 @@
             <div class="rd-navbar-top-panel rd-navbar-collapse novi-background">
               <div class="rd-navbar-top-panel-inner">
                 <ul class="list-inline">
-                  <li class="box-inline list-inline-item"><span class="icon novi-icon icon-md-smaller icon-secondary mdi mdi-phone"></span>
-                    <ul class="list-comma">
-                      <li><a href="tel:+447488818564">+44-7488-818564</a></li>
-                      <li><a href="tel:+447488818564">+44-7488-818564</a></li>
-                    </ul>
-                  </li>
-                  <li class="box-inline list-inline-item"><span class="icon novi-icon icon-md-smaller icon-secondary mdi mdi-map-marker"></span><a href="#">71-75 Shelton Street, Covent Garden, London WC2H 9JQ, UK</a></li>
-                  <li class="box-inline list-inline-item"><span class="icon novi-icon icon-md-smaller icon-secondary mdi mdi-email"></span><a href="mailto:jason@firstclassflightforless.com">jason@firstclassflightforless.com</a></li>
-                </ul>
-                <ul class="list-inline">
-                  <li class="list-inline-item"><a class="icon novi-icon icon-sm-bigger icon-gray-1 mdi mdi-facebook" href="#"></a></li>
+                <li class="list-inline-item"><a class="icon novi-icon icon-sm-bigger icon-gray-1 mdi mdi-facebook" href="#"></a></li>
                   <li class="list-inline-item"><a class="icon novi-icon icon-sm-bigger icon-gray-1 mdi mdi-twitter" href="#"></a></li>
                   <li class="list-inline-item"><a class="icon novi-icon icon-sm-bigger icon-gray-1 mdi mdi-instagram" href="#"></a></li>
                   <li class="list-inline-item"><a class="icon novi-icon icon-sm-bigger icon-gray-1 mdi mdi-google-plus" href="#"></a></li>
                   <li class="list-inline-item"><a class="icon novi-icon icon-sm-bigger icon-gray-1 mdi mdi-linkedin" href="#"></a></li>
+                  
+                </ul>
+                <ul class="list-inline">
+                <li class="box-inline list-inline-item"><span class="icon novi-icon icon-md-smaller icon-secondary mdi mdi-map-marker"></span>71-75 Shelton Street, Covent Garden, London WC2H 9JQ, UK</li>
+                  <li class="box-inline list-inline-item"><span class="icon novi-icon icon-md-smaller icon-secondary mdi mdi-email"></span><a href="mailto:jason@firstclassflightforless.com">jason@firstclassflightforless.com</a></li>
+                  <li class="box-inline list-inline-item"><span class="icon novi-icon icon-md-smaller icon-secondary mdi mdi-phone"></span>
+                    <ul class="list-comma">
+                      <li><a href="tel:+447488818564">+44-7488-818564</a></li>
+                    </ul>
+                  </li>
+                  
                 </ul>
               </div>
               <div class="rd-navbar-top-panel-inner"></div>

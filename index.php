@@ -39,13 +39,13 @@ $message = "";
                         }
                        
 
-                        $sqlquery = "INSERT INTO `quote_request` (`id`, `name`, `email`, `phone`, `departure_airport`, `departure_date`, `arrival_airport`, `arrival_date`, `pax`, `type`, `note`, `timestamp`) 
-                        VALUES (NULL, '$name', '$email', '$phone', '$departure_airport', '$departure_date', '$arrival_airport', '$arrival_date', '$pax', '$type', '$note', current_timestamp())";
+                        $sqlquery = "INSERT INTO `quote_request` (`id`, `fname`, `lname`, `email`, `phone`, `departure_airport`, `departure_date`, `arrival_airport`, `arrival_date`, `pax`, `type`, `flexibility`, `note`, `timestamp`) 
+                        VALUES (NULL, '$fname', '$lname', '$email', '$phone', '$departure_airport', '$departure_date', '$arrival_airport', '$arrival_date', '$pax', '$type', '$flexibility', '$note', current_timestamp())";
                         
 
                         if ($conn->query($sqlquery) === TRUE) {
-                          $to = "minhaj@stealthai.net, moon.cse4.bu@gmail.com";
-                          $subject = "Testing Emails";
+                          $to = "minhaj@stealthai.net, moon.cse4.bu@gmail.com, tanzil@fortmedia.net";
+                          $subject = "New Lead from FCFL";
 
                           $mail = "
                           <html>
@@ -56,8 +56,12 @@ $message = "";
                           <p>A new lead has arrived!</p>
                           <table>
                           <tr>
-                          <td>Name</td>
-                          <td>$name</td>
+                          <td>First Name</td>
+                          <td>$fname</td>
+                          </tr>
+                          <tr>
+                          <td>Last Name</td>
+                          <td>$lname</td>
                           </tr>
                           <tr>
                           <td>Email </td>
@@ -86,6 +90,10 @@ $message = "";
                           <tr>
                           <td>Type </td>
                           <td>$type</td>
+                          </tr>
+                          <tr>
+                          <td>Flexibility </td>
+                          <td>$flexibility</td>
                           </tr>
                           <tr>
                           <td>PAX </td>
@@ -223,7 +231,7 @@ $message = "";
                         <div class="col-sm">
                           <label class="form-label-outside">Phone</label>
                             <div class="form-wrap form-wrap-validation">
-                              <input class="form-control" name="phone" type="tel" required>
+                              <input id="phone" class="form-control" name="phone" type="tel" required>
 
                             </div>
                         </div>
@@ -634,4 +642,11 @@ function settour(dept, arrv){
   return false;
 }
 
+</script>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
+<script>
+  var input = document.querySelector("#phone");
+  window.intlTelInput(input, {
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
+  });
 </script>
