@@ -130,7 +130,7 @@ $message = "";
                         ?>
 
 
-                  <form style="margin-top: 0%; z-index:3;" class="" action="" method="post" >
+                  <form style="margin-top: 0%; z-index:3;" class="" action="" method="" >
                     <div class="row row-20 row-fix">
                     <div class="col-sm-12" >
                         <label class="form-label-outside">Trip Type</label>
@@ -150,21 +150,19 @@ $message = "";
                             </div>
                         </div>
                         <div class="col-sm">
-                        <div class="form-wrap form-wrap-validation">
-                          <input
-                            placeholder="Departure Date"
-                            name="departure_date"
-                            class="form-control"
-                            type="text"
-                            onfocus="(this.type='date')"
-                            id="date" />
+                          <div class="form-wrap form-wrap-validation">
+                            <input
+                              placeholder="Departure Date"
+                              name="departure_date"
+                              class="form-control"
+                              type="text"
+                              min="<?php echo date("Y-m-d"); ?>"
+                              onfocus="(this.type='date')"
+                              id="departure_date" />
+                          </div>
                         </div>
                       </div>
-                      </div>
                       
-
-                      
-
                       <div class="row">
                         <div class="col-sm">
                             <div class="form-wrap form-wrap-validation">
@@ -173,16 +171,17 @@ $message = "";
                             </div>
                         </div>
                         <div class="col-sm">
-                        <div class="form-wrap form-wrap-validation">
-                          <input
-                            placeholder="Arrival Date (Optional)"
-                            name="arrival_date"
-                            class="form-control"
-                            type="text"
-                            onfocus="(this.type='date')"
-                            id="date" />
+                          <div class="form-wrap form-wrap-validation">
+                            <input
+                              placeholder="Arrival Date (Optional)"
+                              name="arrival_date"
+                              class="form-control"
+                              type="text"
+                              min="<?php echo date("Y-m-d"); ?>"
+                              onfocus="(this.type='date')"
+                              id="arrival_date" />
+                          </div>
                         </div>
-                      </div>
                       </div>
 
 
@@ -665,11 +664,24 @@ var input = document.querySelector("#phone");
 function number(){
   
   var iti = window.intlTelInputGlobals.getInstance(input);
+
+
+  departure_date = document.getElementById("departure_date").value;
+  arrival_date = document.getElementById("arrival_date").value;
+
   if (iti.isValidNumber() == false) {
       alert("Phone number is not valid");
       event.preventDefault();
       returnToPreviousPage();
       return false;
+  } 
+
+  else if( (new Date(departure_date).getTime() > new Date(arrival_date).getTime()))
+  {
+    alert("Departure date should be less than Arrival date");
+    event.preventDefault();
+    returnToPreviousPage();
+    return false;
   }
   else{
     document.getElementById("phone").value = iti.getNumber();
