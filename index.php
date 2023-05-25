@@ -99,6 +99,10 @@ $message = "";
                           <td>PAX </td>
                           <td>$pax</td>
                           </tr>
+                          <tr>
+                          <td>Note </td>
+                          <td>$note</td>
+                          </tr>
                           </table>
                           </body>
                           </html>
@@ -126,7 +130,7 @@ $message = "";
                         ?>
 
 
-                  <form style="margin-top: 0%; z-index:3;" class="" action="" method="" >
+                  <form style="margin-top: 0%; z-index:3;" class="" action="" method="post" >
                     <div class="row row-20 row-fix">
                     <div class="col-sm-12" >
                         <label class="form-label-outside">Trip Type</label>
@@ -140,16 +144,20 @@ $message = "";
 
                       <div class="row">
                         <div class="col-sm">
-                          <label class="form-label-outside">From</label>
                             <div class="form-wrap form-wrap-validation">
-                            <input type="text" id="dept_air" name="departure_airport" class="autocomplete form-control" placeholder="City name or airport code" />
+                            <input type="text" id="dept_air" name="departure_airport" class="autocomplete form-control" placeholder="Departure City or Code" />
 
                             </div>
                         </div>
                         <div class="col-sm">
-                        <label class="form-label-outside">Departure Date</label>
                         <div class="form-wrap form-wrap-validation">
-                          <input class="form-control" id="" name="departure_date" type="date" >
+                          <input
+                            placeholder="Departure Date"
+                            name="departure_date"
+                            class="form-control"
+                            type="text"
+                            onfocus="(this.type='date')"
+                            id="date" />
                         </div>
                       </div>
                       </div>
@@ -159,16 +167,20 @@ $message = "";
 
                       <div class="row">
                         <div class="col-sm">
-                          <label class="form-label-outside">To</label>
                             <div class="form-wrap form-wrap-validation">
-                            <input type="text" id="arrv_air" name="arrival_airport" class="autocomplete form-control" placeholder="City name or airport code" />
+                            <input type="text" id="arrv_air" name="arrival_airport" class="autocomplete form-control" placeholder="Arrival City or Code" />
 
                             </div>
                         </div>
                         <div class="col-sm">
-                        <label class="form-label-outside">Arrival Date</label>
                         <div class="form-wrap form-wrap-validation">
-                          <input class="form-control" id="" name="arrival_date" type="date" >
+                          <input
+                            placeholder="Arrival Date (Optional)"
+                            name="arrival_date"
+                            class="form-control"
+                            type="text"
+                            onfocus="(this.type='date')"
+                            id="date" />
                         </div>
                       </div>
                       </div>
@@ -179,7 +191,8 @@ $message = "";
                         <div class="col-sm-6">
                         <label class="form-label-outside">Adults</label>
                         <div class="form-wrap form-wrap-modern">
-                          <input class="form-control input-append" id="form-element-stepper" type="number" min="0" max="300" value="1" name="pax">
+                          <input class="form-control input-append" id="form-element-stepper" type="number" min="0" max="9" value="1" name="pax">
+
                         </div>
                         </div>
                         <div class="col-sm-6">
@@ -212,16 +225,14 @@ $message = "";
 
                     <div class="row">
                         <div class="col-sm">
-                          <label class="form-label-outside">First Name</label>
                             <div class="form-wrap form-wrap-validation">
-                              <input class="form-control" name="fname" type="text" >
+                              <input class="form-control" name="fname" type="text" placeholder="First Name">
 
                             </div>
                         </div>
                         <div class="col-sm">
-                          <label class="form-label-outside">Last Name</label>
                             <div class="form-wrap form-wrap-validation">
-                              <input class="form-control" name="lname" type="text" >
+                              <input class="form-control" name="lname" type="text" placeholder="Last Name">
 
                             </div>
                         </div>
@@ -229,16 +240,14 @@ $message = "";
                       <div class="row">
 
                         <div class="col-sm">
-                          <label class="form-label-outside">Phone</label>
                             <div class="form-wrap form-wrap-validation">
                               <input id="phone" class="form-control" name="phone" type="tel" >
 
                             </div>
                         </div>
                         <div class="col-sm">
-                          <label class="form-label-outside">Email</label>
                             <div class="form-wrap form-wrap-validation">
-                              <input class="form-control"  name="email" type="email" require>
+                              <input class="form-control"  name="email" type="email" placeholder="example@example.com" required>
 
                             </div>
                         </div>
@@ -252,7 +261,7 @@ $message = "";
 
 
                     <div class="form-wrap form-button">
-                      <button  class="button button-block button-secondary" name="SubmitButton" type="" onclick="number();">Get a Quote</button>
+                      <button  class="button button-block button-secondary" name="SubmitButton" type="submit" onclick="number();">Get a Quote</button>
                     </div>
                   </form> 
                   <p>        <?php echo $message; ?></p>
@@ -658,13 +667,14 @@ function number(){
   var iti = window.intlTelInputGlobals.getInstance(input);
   if (iti.isValidNumber() == false) {
       alert("Phone number is not valid");
+      event.preventDefault();
+      returnToPreviousPage();
+      return false;
   }
-  // add the country code to the number
-  var text = iti.getSelectedCountryData().dialCode + input.value;
-
-  // set the number with the country code in the input field
-  document.getElementById("phone").value = text;
-  console.log(text);
+  else{
+    document.getElementById("phone").value = iti.getNumber();
+    return true;
+  }
 }
 
 
