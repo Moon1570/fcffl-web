@@ -20,6 +20,32 @@ $message = "";
 
                   <?php
                     if(isset($_POST['SubmitButton'])){
+
+                      $captcha = real_escape_string($_POST['googlerecaptcha']);
+
+                      $request_url = 'https://www.google.com/recaptcha/api/siteverify';
+                      
+                      $request_data = [
+                          'secret' => '6Lc_WEQmAAAAAEmytEqkIU28ptUDo1gh23IunIPq',
+                          'response' => $captcha
+                      ];
+                      
+                      $ch = curl_init();
+                      curl_setopt($ch, CURLOPT_URL, $request_url);
+                      curl_setopt($ch, CURLOPT_POST, 1);
+                      curl_setopt($ch, CURLOPT_POSTFIELDS, $request_data);
+                      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                      
+                      $response_body = curl_exec($ch);
+                      
+                      curl_close ($ch);
+                      
+                      $response_data = json_decode($response_body, true);
+                      
+                      if ($response_data['success'] == false) {
+                          // return back with error that captcha is invalid
+                          $message = "Please verify that you are not a robot!";
+                      } else {
                         $type = $_POST["radio"];
                         $departure_airport = $_POST["departure_airport"];
                         $departure_date = $_POST["departure_date"];
@@ -123,10 +149,15 @@ $message = "";
 
                     }
                     CloseCon($conn);
+                      }
+
+
+
+                        
                         ?>
 
 
-                  <form style="margin-top: 0%; z-index:3;" class="" action="" method="" >
+                  <form style="margin-top: 0%; z-index:3;" class="" action="" method="post" id="quote-form" >
                     <div class="row row-20 row-fix">
                     <div class="col-sm-12" >
                         <label class="form-label-outside">Trip Type</label>
@@ -142,7 +173,7 @@ $message = "";
                         <div class="col-sm">
                           <label class="form-label-outside">From</label>
                             <div class="form-wrap form-wrap-validation">
-                            <input type="text" id="dept_air" name="departure_airport" class="autocomplete form-control" placeholder="City name or airport code" />
+                              <input type="text" id="dept_air" name="departure_airport" class="autocomplete form-control" placeholder="City name or airport code" />
 
                             </div>
                         </div>
@@ -246,7 +277,7 @@ $message = "";
                       </div>
 
 
-
+                      <input type="hidden" name="googlerecaptcha" id="googlerecaptcha" required>
 
 
 
@@ -665,6 +696,14 @@ function number(){
   // set the number with the country code in the input field
   document.getElementById("phone").value = text;
   console.log(text);
+
+  grecaptcha.ready(function() {
+                grecaptcha.execute('6Lc_WEQmAAAAABeRxx76nGkFra6n1xsGQaOq12BZ', {action: 'submit'}).then(function(token) {
+                    $('#googlerecaptcha').val(token);
+                    console.log(token);
+                  //  $('#contact-form').submit();
+                });
+            });
 }
 
 
