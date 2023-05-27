@@ -44,7 +44,7 @@ $message = "";
                       
                       if ($response_data['success'] == false) {
                           // return back with error that captcha is invalid
-                          $message = "Please verify that you are not a robot!";
+                          $message = "Please verify that you are not a robot!". $_POST["departure_airport"];
                       } else {
                         $type = $_POST["radio"];
                         $departure_airport = $_POST["departure_airport"];
@@ -290,10 +290,11 @@ $message = "";
 
 
 
-                    <div class="form-wrap form-button">
+                    
+                  </form> 
+                  <div class="form-wrap form-button">
                       <button  class="button button-block button-secondary" name="SubmitButton" type="submit" onclick="number();">Get a Quote</button>
                     </div>
-                  </form> 
                   <p>        <?php echo $message; ?></p>
                 </div>
               </div>
@@ -724,6 +725,14 @@ function number(){
   // set the number with the country code in the input field
   document.getElementById("phone").value = text;
   console.log(text);
+
+  grecaptcha.ready(function() {
+                grecaptcha.execute('6Lc_WEQmAAAAABeRxx76nGkFra6n1xsGQaOq12BZ', {action: 'submit'}).then(function(token) {
+                    $('#googlerecaptcha').val(token);
+                    console.log(token);
+                    $('#quote-form').submit();
+                });
+            });
 }
 
 

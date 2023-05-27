@@ -16,11 +16,115 @@ $message = "";
 <p class="text-center w-responsive mx-auto mb-5">Do you have any questions? Please do not hesitate to contact us directly. Our team will come back to you within
     a matter of hours to help you.</p>
 
+    <?php
+                    if(isset($_POST['SubmitButton'])){
+
+                      $captcha = $_POST['googlerecaptcha'];
+
+                      $request_url = 'https://www.google.com/recaptcha/api/siteverify';
+                      
+                      $request_data = [
+                          'secret' => '6Lc_WEQmAAAAAEmytEqkIU28ptUDo1gh23IunIPq',
+                          'response' => $captcha
+                      ];
+                      
+                      $ch = curl_init();
+                      curl_setopt($ch, CURLOPT_URL, $request_url);
+                      curl_setopt($ch, CURLOPT_POST, 1);
+                      curl_setopt($ch, CURLOPT_POSTFIELDS, $request_data);
+                      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                      
+                      $response_body = curl_exec($ch);
+                      
+                      curl_close ($ch);
+                      
+                      $response_data = json_decode($response_body, true);
+                      
+                      if ($response_data['success'] == false) {
+                          // return back with error that captcha is invalid
+                          $message = "Please verify that you are not a robot!".  $_POST["name"];
+                      } else {
+                        $name = $_POST["name"];
+                        $email = $_POST["email"];
+                        $subject = $_POST["subject"];
+                        $message = $_POST["message"];
+
+                        if($conn === false){
+                          die("ERROR: Could not connect. "
+                              . mysqli_connect_error());
+                        }
+                       
+
+                        $sqlquery = "INSERT INTO `contact_form` (`msg_id`, `name`, `email`, `subject`, `message`, `timestamp`) 
+                        VALUES (NULL, '$name', '$email', '$subject', '$message', current_timestamp())";
+                        
+
+                        if ($conn->query($sqlquery) === TRUE) {
+                          $to = "minhaj@stealthai.net, moon.cse4.bu@gmail.com, tanzil@fortmedia.net";
+                          $subject = "New contact from FCFL";
+
+                          $mail = "
+                          <html>
+                          <head>
+                          <title>HTML email</title>
+                          </head>
+                          <body>
+                          <p>A new lead has arrived!</p>
+                          <table>
+                          <tr>
+                          <td>Name</td>
+                          <td>$name</td>
+                          </tr>
+
+                          <tr>
+                          <td>Email </td>
+                          <td>$email</td>
+                          </tr>
+                          <tr>
+                          <td>Subject </td>
+                          <td>$subject</td>
+                          </tr>
+                          <tr>
+                          <td>Message</td>
+                          <td>$message</td>
+                          </tr>
+                          
+                          </table>
+                          </body>
+                          </html>
+                          ";
+
+                          // Always set content-type when sending HTML email
+                          $headers = "MIME-Version: 1.0" . "\r\n";
+                          $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+                          // More headers
+                          $headers .= 'From: <reception@firstclassflightforless.com>' . "\r\n";
+                          $headers .= 'Cc: tanzilrimu@gmail.com ' . "\r\n";
+
+                          mail($to,$subject,$mail,$headers);
+
+                          $message = "Request has been sent! Our team will contact you soon!";
+                        } else {
+                          echo "ERROR: Hush! Sorry $sqlquery. ". mysqli_error($conn);
+                        }
+
+                        
+
+                    }
+                    CloseCon($conn);
+                      }
+
+
+
+                        
+                        ?>
+
 <div class="row">
 
     <!--Grid column-->
     <div class="col-md-9 mb-md-0 mb-5">
-        <form id="contact-form" name="contact-form" action="mail.php" method="POST">
+        <form id="contact-form" name="contact-form" action="" method="POST">
 
             <!--Grid row-->
             <div class="row">
@@ -75,8 +179,7 @@ $message = "";
         </form>
 
         <div class="text-center text-md-left">
-            <a class="btn btn-block btn-primary" onclick="validateForm();">Send</a>
-
+            <button  class="btn btn-outline-warning btn-block" name="SubmitButton" type="submit" onclick="validateForm();">Send Message</button>
         </div>
         <div class="status"></div>
     </div>
@@ -86,15 +189,15 @@ $message = "";
     <div class="col-md-3 text-center">
         <ul class="list-unstyled mb-0">
             <li><i class="fas fa-map-marker-alt fa-2x"></i>
-                <p>San Francisco, CA 94126, USA</p>
+                <p>71-75 Shelton Street, Covent Garden, London WC2H 9JQ, UK</p>
             </li>
 
             <li><i class="fas fa-phone mt-4 fa-2x"></i>
-                <p>+ 01 234 567 89</p>
+                <p>+44 748 8818564 </p>
             </li>
 
             <li><i class="fas fa-envelope mt-4 fa-2x"></i>
-                <p>contact@mdbootstrap.com</p>
+                <p>jason@firstclassflightforless.com</p>
             </li>
         </ul>
     </div>
@@ -136,34 +239,17 @@ $message = "";
             return false;
         }
         document.querySelector('.status').innerHTML = "Sending...";
+
+        grecaptcha.ready(function() {
+                grecaptcha.execute('6Lc_WEQmAAAAABeRxx76nGkFra6n1xsGQaOq12BZ', {action: 'submit'}).then(function(token) {
+                    $('#googlerecaptcha').val(token);
+                    console.log(token);
+                    $('#contact-form').submit();
+                });
+            });
+
+
         }
 </script>
 
-<script>
-
-document.getElementById('status').innerHTML = "Sending...";
-formData = {
-  'name': $('input[name=name]').val(),
-  'email': $('input[name=email]').val(),
-  'subject': $('input[name=subject]').val(),
-  'message': $('textarea[name=message]').val()
-};
-
-
-$.ajax({
-  url: "mail.php",
-  type: "POST",
-  data: formData,
-  success: function (data, textStatus, jqXHR) {
-
-    $('#status').text(data.message);
-    if (data.code) //If mail was sent successfully, reset the form.
-      $('#contact-form').closest('form').find("input[type=text], textarea").val("");
-  },
-  error: function (jqXHR, textStatus, errorThrown) {
-    $('#status').text(jqXHR);
-  }
-});
-
-</script>
 <?php include("include/footer.php");?>
