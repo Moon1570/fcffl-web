@@ -21,7 +21,7 @@ $message = "";
                   <?php
                     if(isset($_POST['SubmitButton'])){
 
-                      $captcha = real_escape_string($_POST['googlerecaptcha']);
+                      $captcha = $_POST['googlerecaptcha'];
 
                       $request_url = 'https://www.google.com/recaptcha/api/siteverify';
                       
@@ -256,13 +256,13 @@ $message = "";
                     <div class="row">
                         <div class="col-sm">
                             <div class="form-wrap form-wrap-validation">
-                              <input class="form-control" name="fname" type="text" placeholder="First Name">
+                              <input class="form-control" name="fname" type="text" placeholder="First Name" required>
 
                             </div>
                         </div>
                         <div class="col-sm">
                             <div class="form-wrap form-wrap-validation">
-                              <input class="form-control" name="lname" type="text" placeholder="Last Name">
+                              <input class="form-control" name="lname" type="text" placeholder="Last Name" required>
 
                             </div>
                         </div>
@@ -271,7 +271,7 @@ $message = "";
 
                         <div class="col-sm">
                             <div class="form-wrap form-wrap-validation">
-                              <input id="phone" class="form-control" name="phone" type="tel" >
+                              <input id="phone" class="form-control" name="phone" type="tel" required>
 
                             </div>
                         </div>
