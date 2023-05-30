@@ -1,5 +1,7 @@
 
-
+<?php
+require_once __DIR__ . '/config.php';
+?>
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="en"> 
   <head>
@@ -20,7 +22,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.css">
 
 	  <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
     <script src="https://www.google.com/recaptcha/api.js?render=6Lc_WEQmAAAAABeRxx76nGkFra6n1xsGQaOq12BZ"></script>
+
 
 		<!--[if lt IE 10]>
     <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>

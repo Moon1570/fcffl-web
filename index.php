@@ -21,31 +21,7 @@ $message = "";
                   <?php
                     if(isset($_POST['SubmitButton'])){
 
-                      $captcha = $_POST['googlerecaptcha'];
-
-                      $request_url = 'https://www.google.com/recaptcha/api/siteverify';
                       
-                      $request_data = [
-                          'secret' => '6Lc_WEQmAAAAAEmytEqkIU28ptUDo1gh23IunIPq',
-                          'response' => $captcha
-                      ];
-                      
-                      $ch = curl_init();
-                      curl_setopt($ch, CURLOPT_URL, $request_url);
-                      curl_setopt($ch, CURLOPT_POST, 1);
-                      curl_setopt($ch, CURLOPT_POSTFIELDS, $request_data);
-                      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                      
-                      $response_body = curl_exec($ch);
-                      
-                      curl_close ($ch);
-                      
-                      $response_data = json_decode($response_body, true);
-                      
-                      if ($response_data['success'] == false) {
-                          // return back with error that captcha is invalid
-                          $message = "Please verify that you are not a robot!". $_POST["departure_airport"];
-                      } else {
                         $type = $_POST["radio"];
                         $departure_airport = $_POST["departure_airport"];
                         $departure_date = $_POST["departure_date"];
@@ -149,10 +125,7 @@ $message = "";
                           echo "ERROR: Hush! Sorry $sqlquery. ". mysqli_error($conn);
                         }
 
-                        
-
-                    }
-                    CloseCon($conn);
+                        CloseCon($conn);
                       }
 
 
@@ -285,7 +258,6 @@ $message = "";
                       </div>
 
 
-                      <input type="hidden" name="googlerecaptcha" id="googlerecaptcha" required>
 
 
 
@@ -726,13 +698,6 @@ function number(){
   document.getElementById("phone").value = text;
   console.log(text);
 
-  grecaptcha.ready(function() {
-                grecaptcha.execute('6Lc_WEQmAAAAABeRxx76nGkFra6n1xsGQaOq12BZ', {action: 'submit'}).then(function(token) {
-                    $('#googlerecaptcha').val(token);
-                    console.log(token);
-                    $('#quote-form').submit();
-                });
-            });
 }
 
 
