@@ -2,7 +2,6 @@
 include 'include/db_connection.php';
 $conn = OpenCon();
 //CloseCon($conn);
-$message = "";
 ?>
 
 
@@ -19,7 +18,14 @@ $message = "";
                   
 
                   <?php
-                    if(isset($_POST['SubmitButton'])){
+
+                    $secretKey = "6Lc_WEQmAAAAABeRxx76nGkFra6n1xsGQaOq12BZ";
+                    $postData = $valErr = $message = ''; 
+                    $status = 'error'; 
+ 
+
+                    if(isset($_POST['submit_frm'])){  
+                        $postData = $_POST;  
 
                       
                         $type = $_POST["radio"];
@@ -35,95 +41,159 @@ $message = "";
                         $flexibility = $_POST["flexibility"];
                         $note = $_POST["note"];
 
-                        if($conn === false){
-                          die("ERROR: Could not connect. "
-                              . mysqli_connect_error());
+
+                        if (empty($fname)){
+                          $valErr .= "First Name is required <br>";
                         }
-                       
+                        if (empty($lname)){
+                          $valErr .= "Last Name is required <br>";
+                        }
+                        if (empty($email)){
+                          $valErr .= "Please enter an email address <br>";
+                        }
+                        if (empty($phone)){
+                          $valErr .= "Phone Number is required <br>";
+                        }
 
-                        $sqlquery = "INSERT INTO `quote_request` (`id`, `fname`, `lname`, `email`, `phone`, `departure_airport`, `departure_date`, `arrival_airport`, `arrival_date`, `pax`, `type`, `flexibility`, `note`, `timestamp`) 
-                        VALUES (NULL, '$fname', '$lname', '$email', '$phone', '$departure_airport', '$departure_date', '$arrival_airport', '$arrival_date', '$pax', '$type', '$flexibility', '$note', current_timestamp())";
-                        
 
-                        if ($conn->query($sqlquery) === TRUE) {
+                        if(empty($valErr)){
+
                           $to = "minhaj@stealthai.net, moon.cse4.bu@gmail.com, tanzil@fortmedia.net";
-                          $subject = "New Lead from FCFL";
+                                  $subject = "New Lead from FCFL";
+        
+                                  $mail = "
+                                  <html>
+                                  <head>
+                                  <title>HTML email</title>
+                                  </head>
+                                  <body>
+                                  <p>A new lead has arrived!</p>
+                                  <table>
+                                  <tr>
+                                  <td>First Name</td>
+                                  <td>$fname</td>
+                                  </tr>
+                                  <tr>
+                                  <td>Last Name</td>
+                                  <td>$lname</td>
+                                  </tr>
+                                  <tr>
+                                  <td>Email </td>
+                                  <td>$email</td>
+                                  </tr>
+                                  <tr>
+                                  <td>Phone </td>
+                                  <td>$phone</td>
+                                  </tr>
+                                  <tr>
+                                  <td>Departure Airport </td>
+                                  <td>$departure_airport</td>
+                                  </tr>
+                                  <tr>
+                                  <td>Departure Date </td>
+                                  <td>$departure_date</td>
+                                  </tr>
+                                  <tr>
+                                  <td>Arrival Airport </td>
+                                  <td>$arrival_airport</td>
+                                  </tr>
+                                  <tr>
+                                  <td>Arrival Date </td>
+                                  <td>$arrival_date</td>
+                                  </tr>
+                                  <tr>
+                                  <td>Type </td>
+                                  <td>$type</td>
+                                  </tr>
+                                  <tr>
+                                  <td>Flexibility </td>
+                                  <td>$flexibility</td>
+                                  </tr>
+                                  <tr>
+                                  <td>PAX </td>
+                                  <td>$pax</td>
+                                  </tr>
+                                  <tr>
+                                  <td>Note </td>
+                                  <td>$note</td>
+                                  </tr>
+                                  </table>
+                                  </body>
+                                  </html>
+                                  ";
+        
+                                  // Always set content-type when sending HTML email
+                                  $headers = "MIME-Version: 1.0" . "\r\n";
+                                  $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        
+                                  // More headers
+                                  $headers .= 'From: <reception@firstclassflightforless.com>' . "\r\n";
+                                  $headers .= 'Cc: tanzilrimu@gmail.com ' . "\r\n";
+        
+                                  mail($to,$subject,$mail,$headers);
+        
+                                  $message = "Request has been sent! Our team will contact you soon!";
+                                  $status = 'success';  
+                                  $postData = '';  
 
-                          $mail = "
-                          <html>
-                          <head>
-                          <title>HTML email</title>
-                          </head>
-                          <body>
-                          <p>A new lead has arrived!</p>
-                          <table>
-                          <tr>
-                          <td>First Name</td>
-                          <td>$fname</td>
-                          </tr>
-                          <tr>
-                          <td>Last Name</td>
-                          <td>$lname</td>
-                          </tr>
-                          <tr>
-                          <td>Email </td>
-                          <td>$email</td>
-                          </tr>
-                          <tr>
-                          <td>Phone </td>
-                          <td>$phone</td>
-                          </tr>
-                          <tr>
-                          <td>Departure Airport </td>
-                          <td>$departure_airport</td>
-                          </tr>
-                          <tr>
-                          <td>Departure Date </td>
-                          <td>$departure_date</td>
-                          </tr>
-                          <tr>
-                          <td>Arrival Airport </td>
-                          <td>$arrival_airport</td>
-                          </tr>
-                          <tr>
-                          <td>Arrival Date </td>
-                          <td>$arrival_date</td>
-                          </tr>
-                          <tr>
-                          <td>Type </td>
-                          <td>$type</td>
-                          </tr>
-                          <tr>
-                          <td>Flexibility </td>
-                          <td>$flexibility</td>
-                          </tr>
-                          <tr>
-                          <td>PAX </td>
-                          <td>$pax</td>
-                          </tr>
-                          <tr>
-                          <td>Note </td>
-                          <td>$note</td>
-                          </tr>
-                          </table>
-                          </body>
-                          </html>
-                          ";
 
-                          // Always set content-type when sending HTML email
-                          $headers = "MIME-Version: 1.0" . "\r\n";
-                          $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                            if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])){  
+    
+                              // Google reCAPTCHA verification API Request  
+                              $api_url = 'https://www.google.com/recaptcha/api/siteverify';  
+                              $resq_data = array(  
+                                  'secret' => $secretKey,  
+                                  'response' => $_POST['g-recaptcha-response'],  
+                                  'remoteip' => $_SERVER['REMOTE_ADDR']  
+                              );  
+                    
+                              $curlConfig = array(  
+                                  CURLOPT_URL => $api_url,  
+                                  CURLOPT_POST => true,  
+                                  CURLOPT_RETURNTRANSFER => true,  
+                                  CURLOPT_POSTFIELDS => $resq_data  
+                              );  
+                    
+                              $ch = curl_init();  
+                              curl_setopt_array($ch, $curlConfig);  
+                              $response = curl_exec($ch);  
+                              curl_close($ch);  
+                    
+                              // Decode JSON data of API response in array  
+                              $responseData = json_decode($response);  
+                    
+                              // If the reCAPTCHA API response is valid  
+                              if($responseData->success){ 
+                                $message .= 'Captcha verified successfully.';
+                                
+                                if($conn === false){
+                                  die("ERROR: Could not connect. "
+                                      . mysqli_connect_error());
+                                }
+                              
+        
+                                $sqlquery = "INSERT INTO `quote_request` (`id`, `fname`, `lname`, `email`, `phone`, `departure_airport`, `departure_date`, `arrival_airport`, `arrival_date`, `pax`, `type`, `flexibility`, `note`, `timestamp`) 
+                                VALUES (NULL, '$fname', '$lname', '$email', '$phone', '$departure_airport', '$departure_date', '$arrival_airport', '$arrival_date', '$pax', '$type', '$flexibility', '$note', current_timestamp())";
+                                
+        
+                                if ($conn->query($sqlquery) === TRUE) {
+                                   $message="Our team will contact you shortly. Please check your email and spam folder.";
+                                } else {
+                                  echo "ERROR: Hush! Sorry $sqlquery. ". mysqli_error($conn);
+                                }
+                                    
+    
+                              }else{  
+                                  $message .= 'The reCAPTCHA verification.';  
+                              }  
+                          }else{  
+                              $message = 'Something went wrong, please try again.';  
+                          }  
 
-                          // More headers
-                          $headers .= 'From: <reception@firstclassflightforless.com>' . "\r\n";
-                          $headers .= 'Cc: tanzilrimu@gmail.com ' . "\r\n";
-
-                          mail($to,$subject,$mail,$headers);
-
-                          $message = "Request has been sent! Our team will contact you soon!";
-                        } else {
-                          echo "ERROR: Hush! Sorry $sqlquery. ". mysqli_error($conn);
+                        } else{
+                          $message = $valErr;
                         }
+
 
                         CloseCon($conn);
                       }
@@ -134,7 +204,7 @@ $message = "";
                         ?>
 
 
-                  <form style="margin-top: 0%; z-index:3;" class="" action="" method="post" id="quote-form" >
+                  <form style="margin-top: 0%; z-index:3;" class="index.php" action="" method="post" id="quoteForm" name="quoteForm" >
                     <div class="row row-20 row-fix">
                     <div class="col-sm-12" >
                         <label class="form-label-outside">Trip Type</label>
@@ -254,6 +324,16 @@ $message = "";
 
                             </div>
                         </div>
+
+                        <input type="hidden" name="submit_frm" value="1">
+
+
+                        <div class="form-wrap form-button">
+                  <button class="button button-block button-secondary g-recaptcha" 
+    data-sitekey="6Lc_WEQmAAAAABeRxx76nGkFra6n1xsGQaOq12BZ  " 
+    data-callback='onSubmit' 
+    data-action='submit'>Submit</button>
+                    </div>
                         
                       </div>
 
@@ -264,9 +344,7 @@ $message = "";
 
                     
                   </form> 
-                  <div class="form-wrap form-button">
-                      <button  class="button button-block button-secondary" name="SubmitButton" type="submit" onclick="number();">Get a Quote</button>
-                    </div>
+                  
                   <p>        <?php echo $message; ?></p>
                 </div>
               </div>
@@ -664,12 +742,12 @@ var input = document.querySelector("#phone");
   window.intlTelInput(input, {
     utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
   });
-  
-function number(){
-  
+
+
+function onSubmit(token) {
+
+
   var iti = window.intlTelInputGlobals.getInstance(input);
-
-
   departure_date = document.getElementById("departure_date").value;
   arrival_date = document.getElementById("arrival_date").value;
 
@@ -677,7 +755,6 @@ function number(){
       alert("Phone number is not valid");
       event.preventDefault();
       returnToPreviousPage();
-      return false;
   } 
 
   else if( (new Date(departure_date).getTime() > new Date(arrival_date).getTime()))
@@ -685,18 +762,25 @@ function number(){
     alert("Departure date should be less than Arrival date");
     event.preventDefault();
     returnToPreviousPage();
-    return false;
   }
   else{
     document.getElementById("phone").value = iti.getNumber();
-    return true;
   }
   // add the country code to the number
   var text = iti.getSelectedCountryData().dialCode + input.value;
 
   // set the number with the country code in the input field
+  console.log("reached");
+
   document.getElementById("phone").value = text;
   console.log(text);
+
+    document.quoteForm.submit();
+}
+  
+function number(){
+  
+  
 
 }
 

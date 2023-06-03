@@ -23,7 +23,7 @@ require_once __DIR__ . '/config.php';
 
 	  <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
-    <script src="https://www.google.com/recaptcha/api.js?render=6Lc_WEQmAAAAABeRxx76nGkFra6n1xsGQaOq12BZ"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 
 
 		<!--[if lt IE 10]>
