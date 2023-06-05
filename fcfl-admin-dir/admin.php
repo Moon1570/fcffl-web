@@ -1,1 +1,1 @@
-<?php echo "hello admin";?>
+<a href="clients.php">Clients</a>

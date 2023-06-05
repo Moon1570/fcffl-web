@@ -1,3 +1,14 @@
+<?php 
+
+session_start();
+echo "Session Started";
+if(isset($_SESSION["aid"])) {
+  echo "Already Logged In";
+  header("Location:admin.php");
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
