@@ -13,7 +13,7 @@
         </div>
         <ul class="nav">
           <li>
-            <a href="./dashboard.html">
+            <a href="./dashboard.php">
               <i class="tim-icons icon-chart-pie-36"></i>
               <p>Dashboard</p>
             </a>
