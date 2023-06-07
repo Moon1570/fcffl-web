@@ -19,25 +19,25 @@
             </a>
           </li>
           <li>
-            <a href="./icons.html">
+            <a href="./icons.php">
               <i class="tim-icons icon-atom"></i>
               <p>Icons</p>
             </a>
           </li>
           <li>
-            <a href="./map.html">
+            <a href="./map.php">
               <i class="tim-icons icon-pin"></i>
               <p>Maps</p>
             </a>
           </li>
           <li>
-            <a href="./notifications.html">
+            <a href="./notifications.php">
               <i class="tim-icons icon-bell-55"></i>
               <p>Notifications</p>
             </a>
           </li>
           <li>
-            <a href="./user.html">
+            <a href="./user.php">
               <i class="tim-icons icon-single-02"></i>
               <p>User Profile</p>
             </a>
@@ -49,13 +49,13 @@
             </a>
           </li>
           <li>
-            <a href="./typography.html">
+            <a href="./typography.php">
               <i class="tim-icons icon-align-center"></i>
               <p>Typography</p>
             </a>
           </li>
           <li>
-            <a href="./rtl.html">
+            <a href="./rtl.php">
               <i class="tim-icons icon-world"></i>
               <p>RTL Support</p>
             </a>

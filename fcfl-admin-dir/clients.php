@@ -79,3 +79,11 @@ if(!isset($_SESSION["aid"])) {
      <?php
         include 'include/admin-footer.php'; 
      ?>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.5/datatables.min.js"></script>
+  <script>
+    $(document).ready(function(){  
+            $('#clients_data').DataTable();  
+        }); 
+  </script>
