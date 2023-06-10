@@ -40,7 +40,7 @@ if(isset($_SESSION["aid"])) {
                 <!-- <label class="form-label" for="typePasswordX">Password</label> -->
               </div>
 
-              <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="emailcheck.php">Forgot password?</a></p>
+              <!-- <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#">Forgot password?</a></p> -->
 
               <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button></form>
 
