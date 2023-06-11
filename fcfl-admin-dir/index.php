@@ -1,10 +1,13 @@
 <?php 
 session_start();
 if(isset($_SESSION["aid"])) {
-  echo "Already Logged In";
+  //echo "Already Logged In";
   header("Location:dashboard.php");
 }
-
+if(isset($_SESSION["err"])) {
+  echo '<script type="text/JavaScript"> alert("Wrong Credentials");</script>';
+  unset($_SESSION["err"]);
+}
 
 ?>
 <!DOCTYPE html>

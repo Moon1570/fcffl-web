@@ -1,6 +1,6 @@
 <?php 
     $url = $_SERVER['SCRIPT_NAME'];
-    echo $url;
+    //echo $url;
     $dashboard = "";
     $icons= "";
     $map = "";
