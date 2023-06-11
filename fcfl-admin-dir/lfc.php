@@ -70,22 +70,32 @@ if(!isset($_SESSION["aid"])) {
                     <?php  
                       while($row = mysqli_fetch_array($result))  
                       {  
-                          $phn = $row["phone"];
-                          $phn = str_replace(' ', '', $phn);
-                          $phn = str_replace('(', '', $phn);
-                          $phn = str_replace(')', '', $phn);
-                          $phn = str_replace('-', '', $phn);
+                            $phn = $row["phone"];
+                            $phn = str_replace(' ', '', $phn);
+                            $phn = str_replace('(', '', $phn);
+                            $phn = str_replace(')', '', $phn);
+                            $phn = str_replace('-', '', $phn);
+
+                            $lfc_id = $row["lfc_id"];
+                            $fname = $row["first_name"];
+                            $lname = $row["last_name"];
+                            $email = $row["email"];
+                            $phone = $row["phone"];
+                            $timestamp = $row["timestamp"];
 
                           echo'<tr>  
-                                  <td>'.$row["lfc_id"].'</td>  
-                                  <td>'.$row["first_name"].'</td>  
-                                  <td>'.$row["last_name"].'</td>  
-                                  <td>'.$row["email"].'</td>  
-                                  <td>'.$row["phone"].'</td>  
-                                  <td>'.$row["timestamp"].'</td>  
-                                  <td> <a href="">Edit</a> | <a href="">Delete</a> </td>  
+                                  <td>'.$lfc_id.'</td>  
+                                  <td>'.$fname.'</td>  
+                                  <td>'.$lname.'</td>  
+                                  <td>'.$email.'</td>  
+                                  <td>'.$phone.'</td>  
+                                  <td>'.$timestamp.'</td>  
+                                  <td>
+                                  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateLFC" onclick="updateModal('.$lfc_id.',\''.$fname.'\',\''.$lname.'\',\''.$phone.'\',\''.$email.'\'); return false;"> Edit</button>
+                                  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#deleteLFC" onclick="deleteModal(\''.$lfc_id.'\'); return false;"> Delete</button>
+                                  </td>  
                               </tr>  
-                          ';  
+                          ';     
                       }  
                   ?>  
                     </tbody>
@@ -141,6 +151,72 @@ if(!isset($_SESSION["aid"])) {
         </div>
     </div>
 
+    <div class="modal fade" id="updateLFC" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel">Update LFC</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="form" action="lfcform.php" method="post">
+                    <input type="hidden" name="type" value="update">
+                    <input type="hidden" name="lfc_id" id="lfc_id" value="">
+
+                    <table  class="table">
+
+                        <tr >
+                            <td><p style="color: black;">First Name</p></td>
+                            <td><input class="form-control" style="color: black;" type="text" id="ufname" name="fname" placeholder="First Name"></td>
+                        </tr>
+
+                        <tr>
+                            <td><p style="color: black;">Last Name</p></td>
+                            <td><input class="form-control" style="color: black;" type="text" id="ulname" name="lname" placeholder="Last Name"></td>
+                        </tr>
+
+                        <tr>
+                            <td><p style="color: black;">Email</p></td>
+                            <td><input class="form-control" style="color: black;" type="text" id="uemail" name="email" placeholder="Email"></td>
+                        </tr>
+
+                        <tr>
+                            <td><p style="color: black;">Phone</p></td>
+                            <td><input class="form-control" style="color: black;" type="text" id="uphone" name="phone" placeholder="Phone"></td>
+                        </tr>
+                    </table>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <input type="submit" class="btn btn-success" value="Save changes">
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteLFC" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel">Delete LFC</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="form" action="lfcform.php" method="post">
+                    <input type="hidden" name="type" value="delete">
+                    <input type="hidden" name="lfc_id" id="dlfc_id" value="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <input type="submit" class="btn btn-warning" value="Delete">
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+
 
 
       <?php
@@ -154,15 +230,32 @@ if(!isset($_SESSION["aid"])) {
             $('#clients_data').DataTable();  
         }); 
   </script>
+
+<script>
+    function updateModal(lfc_id, fname, lname, phone, email) {
+
+        console.log(lfc_id);
+        document.getElementById("lfc_id").value = lfc_id;
+        document.getElementById("ufname").value = fname;
+        document.getElementById("ulname").value = lname;
+        document.getElementById("uemail").value = email;
+        document.getElementById("uphone").value = phone;
+    }
+    function deleteModal(lfc_id) {
+
+        console.log(lfc_id);
+        document.getElementById("dlfc_id").value = lfc_id;
+    }
+</script>
 <script type="text/javascript">
 
 $(document).ready(function () {
  
-window.setTimeout(function() {
-    $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
-        $(this).remove(); 
-    });
-}, 2500);
- 
+    window.setTimeout(function() {
+        $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
+            $(this).remove(); 
+        });
+    }, 2500);
 });
 </script>
+

@@ -23,5 +23,4 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
   <script src="assets/js/core/jquery.min.js"></script>
-	<script src="ajax/ajax.js"></script>
 </head>
