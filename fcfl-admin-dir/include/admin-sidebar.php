@@ -68,9 +68,10 @@
             </a>
           </li>
           <li class="<?php echo "$notifications";  ?>">
-            <a href="./notifications.php">
+            <a href="./lfc.php">
+
               <i class="tim-icons icon-bell-55"></i>
-              <p>Notifications</p>
+              <p>LFC</p>
             </a>
           </li>
           <li class="<?php echo "$user";  ?>">

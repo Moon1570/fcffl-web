@@ -3,6 +3,7 @@
 <html lang="en">
 
 <head>
+  <meta name="robots" content="noindex">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
@@ -21,4 +22,5 @@
   <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
+  <script src="assets/js/core/jquery.min.js"></script>
 </head>
