@@ -1,10 +1,13 @@
 <?php 
 session_start();
 if(isset($_SESSION["aid"])) {
-  echo "Already Logged In";
+  //echo "Already Logged In";
   header("Location:dashboard.php");
 }
-
+if(isset($_SESSION["err"])) {
+  echo '<script type="text/JavaScript"> alert("Wrong Credentials");</script>';
+  unset($_SESSION["err"]);
+}
 
 ?>
 <!DOCTYPE html>
@@ -40,7 +43,7 @@ if(isset($_SESSION["aid"])) {
                 <!-- <label class="form-label" for="typePasswordX">Password</label> -->
               </div>
 
-              <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="emailcheck.php">Forgot password?</a></p>
+              <!-- <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#">Forgot password?</a></p> -->
 
               <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button></form>
 
