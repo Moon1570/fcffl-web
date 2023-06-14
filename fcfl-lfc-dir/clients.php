@@ -63,7 +63,7 @@ if(!isset($_SESSION["lfc_id"])) {
                                   <td>'.$row["last_name"].'</td>  
                                   <td>'.$row["email"].'</td>  
                                   <td>'.$row["phone"].'</td>  
-                                  <td><a href=tel:'.$phn.'>Call</a> || Mail</td>  
+                                  <td></td>  
                               </tr>  
                           ';  
                       }  

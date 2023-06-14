@@ -92,12 +92,6 @@
               <p>Typography</p>
             </a>
           </li>
-          <li class="<?php echo "$rtl";  ?>">
-            <a href="./rtl.php">
-              <i class="tim-icons icon-world"></i>
-              <p>RTL Support</p>
-            </a>
-          </li>
         </ul>
       </div>
     </div>
