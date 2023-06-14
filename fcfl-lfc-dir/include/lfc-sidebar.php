@@ -10,28 +10,28 @@
     $typography = "";
     $rtl = "";
 
-    if ($url == "/fcffl-web/fcfl-admin-dir/dashboard.php") {
+    if ($url == "/fcffl-web/fcfl-lfc-dir/dashboard.php") {
         $dashboard = "active";
     } 
-    elseif ($url == "/fcffl-web/fcfl-admin-dir/icons.php") {
+    elseif ($url == "/fcffl-web/fcfl-lfc-dir/icons.php") {
         $icons = "active";
     }
-    elseif ($url == "/fcffl-web/fcfl-admin-dir/map.php") {
+    elseif ($url == "/fcffl-web/fcfl-lfc-dir/map.php") {
         $map = "active";
     }
-    elseif ($url == "/fcffl-web/fcfl-admin-dir/notifications.php") {
+    elseif ($url == "/fcffl-web/fcfl-lfc-dir/notifications.php") {
       $notifications = "active";
     }
-    elseif ($url == "/fcffl-web/fcfl-admin-dir/user.php") {
+    elseif ($url == "/fcffl-web/fcfl-lfc-dir/user.php") {
       $user = "active";
     }
-    elseif ($url == "/fcffl-web/fcfl-admin-dir/clients.php") {
+    elseif ($url == "/fcffl-web/fcfl-lfc-dir/clients.php") {
       $clients = "active";
     }
-    elseif ($url == "/fcffl-web/fcfl-admin-dir/typography.php") {
+    elseif ($url == "/fcffl-web/fcfl-lfc-dir/typography.php") {
       $typography = "active";
     }
-    elseif ($url == "/fcffl-web/fcfl-admin-dir/rtl.php") {
+    elseif ($url == "/fcffl-web/fcfl-lfc-dir/rtl.php") {
       $rtl = "active";
     }
     ?>

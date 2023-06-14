@@ -1,28 +1,22 @@
 
 <?php 
 include '../include/db_connection.php'; 
-include 'include/admin-header.php'; 
+include 'include/lfc-header.php'; 
 
 session_start();
 
-if(!isset($_SESSION["aid"])) {
+if(!isset($_SESSION["lfc_id"])) {
     header("Location:index.php");
   }
 
 ?>
 
 
-<?php  
-          $conn = OpenCon();
-          $sql = "SELECT * FROM clients";
-          $result = mysqli_query($conn, $sql);
-    ?>  
-
 <body class="">
   <div class="wrapper">
     <?php
-      include 'include/admin-sidebar.php'; 
-      include 'include/admin-navbar.php'; 
+      include 'include/lfc-sidebar.php'; 
+      include 'include/lfc-navbar.php'; 
     ?>
   
       <!-- Navbar -->
@@ -399,5 +393,5 @@ if(!isset($_SESSION["aid"])) {
         </div>
       </div>
       <?php
-        include 'include/admin-footer.php'; 
+        include 'include/lfc-footer.php'; 
      ?>

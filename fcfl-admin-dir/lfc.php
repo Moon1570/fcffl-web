@@ -61,8 +61,8 @@ if(!isset($_SESSION["aid"])) {
                       <th>First Name</th>
                       <th>Last Name</th>  
                       <th>Email</th>    
-                      <th>Phone</th>    
-                      <th>Time Added</th>
+                      <th>Phone</th>   
+                      <th>Password</th>  
                       <th>Action</th>  
                     </tr>
                     </thead>
@@ -81,7 +81,7 @@ if(!isset($_SESSION["aid"])) {
                             $lname = $row["last_name"];
                             $email = $row["email"];
                             $phone = $row["phone"];
-                            $timestamp = $row["timestamp"];
+                            $password = $row["pass"];
 
                           echo'<tr>  
                                   <td>'.$lfc_id.'</td>  
@@ -89,9 +89,9 @@ if(!isset($_SESSION["aid"])) {
                                   <td>'.$lname.'</td>  
                                   <td>'.$email.'</td>  
                                   <td>'.$phone.'</td>  
-                                  <td>'.$timestamp.'</td>  
+                                  <td>'.$password.'</td>
                                   <td>
-                                  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateLFC" onclick="updateModal('.$lfc_id.',\''.$fname.'\',\''.$lname.'\',\''.$phone.'\',\''.$email.'\'); return false;"> Edit</button>
+                                  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateLFC" onclick="updateModal('.$lfc_id.',\''.$fname.'\',\''.$lname.'\',\''.$phone.'\',\''.$email.'\',\''.$password.'\'); return false;"> Edit</button>
                                   <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#deleteLFC" onclick="deleteModal(\''.$lfc_id.'\'); return false;"> Delete</button>
                                   </td>  
                               </tr>  
@@ -139,6 +139,11 @@ if(!isset($_SESSION["aid"])) {
                             <td><p style="color: black;">Phone</p></td>
                             <td><input class="form-control" style="color: black;" type="text" id="phone" name="phone" placeholder="Phone"></td>
                         </tr>
+
+                        <tr>
+                            <td><p style="color: black;">Password</p></td>
+                            <td><input class="form-control" style="color: black;" type="password" id="pass" name="pass" placeholder="Password"></td>
+                        </tr>
                     </table>
 
             </div>
@@ -183,6 +188,11 @@ if(!isset($_SESSION["aid"])) {
                         <tr>
                             <td><p style="color: black;">Phone</p></td>
                             <td><input class="form-control" style="color: black;" type="text" id="uphone" name="phone" placeholder="Phone"></td>
+                        </tr>
+
+                        <tr>
+                            <td><p style="color: black;">Password</p></td>
+                            <td><input class="form-control" style="color: black;" type="text" id="upass" name="pass" placeholder="Password"></td>
                         </tr>
                     </table>
 
@@ -232,7 +242,7 @@ if(!isset($_SESSION["aid"])) {
   </script>
 
 <script>
-    function updateModal(lfc_id, fname, lname, phone, email) {
+    function updateModal(lfc_id, fname, lname, phone, email, password) {
 
         console.log(lfc_id);
         document.getElementById("lfc_id").value = lfc_id;
@@ -240,6 +250,7 @@ if(!isset($_SESSION["aid"])) {
         document.getElementById("ulname").value = lname;
         document.getElementById("uemail").value = email;
         document.getElementById("uphone").value = phone;
+        document.getElementById("upass").value = password;
     }
     function deleteModal(lfc_id) {
 

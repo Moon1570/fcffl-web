@@ -1,7 +1,7 @@
 <?php 
 include '../include/db_connection.php';
 $conn = OpenCon();
-$sql = "SELECT aid,username,email,password FROM admin";
+$sql = "SELECT * FROM lfc";
 $result = mysqli_query($conn, $sql);
 session_start();
 if (mysqli_num_rows($result) > 0) {

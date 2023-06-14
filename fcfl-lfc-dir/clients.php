@@ -4,7 +4,7 @@ include 'include/admin-header.php';
 
 session_start();
 
-if(!isset($_SESSION["aid"])) {
+if(!isset($_SESSION["lfc_id"])) {
     header("Location:index.php");
   }
 
@@ -20,8 +20,8 @@ if(!isset($_SESSION["aid"])) {
 <body class="">
   <div class="wrapper">
     <?php
-      include 'include/admin-sidebar.php'; 
-      include 'include/admin-navbar.php'; 
+      include 'include/lfc-sidebar.php'; 
+      include 'include/lfc-navbar.php'; 
     ?>
   
       <!-- Navbar -->
@@ -77,7 +77,7 @@ if(!isset($_SESSION["aid"])) {
         </div>
       </div>
      <?php
-        include 'include/admin-footer.php'; 
+        include 'include/lfc-footer.php'; 
      ?>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>

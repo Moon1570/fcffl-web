@@ -8,7 +8,7 @@
     $user = "";
     $clients = "";
     $typography = "";
-    $rtl = "";
+    $lfc = "";
 
     if ($url == "/fcffl-web/fcfl-admin-dir/dashboard.php") {
         $dashboard = "active";
@@ -31,8 +31,8 @@
     elseif ($url == "/fcffl-web/fcfl-admin-dir/typography.php") {
       $typography = "active";
     }
-    elseif ($url == "/fcffl-web/fcfl-admin-dir/rtl.php") {
-      $rtl = "active";
+    elseif ($url == "/fcffl-web/fcfl-admin-dir/lfc.php") {
+      $lfc = "active";
     }
     ?>
 <div class="sidebar" data="blue">
@@ -67,7 +67,7 @@
               <p>Map</p>
             </a>
           </li>
-          <li class="<?php echo "$notifications";  ?>">
+          <li class="<?php echo "$lfc";  ?>">
             <a href="./lfc.php">
 
               <i class="tim-icons icon-badge"></i>
