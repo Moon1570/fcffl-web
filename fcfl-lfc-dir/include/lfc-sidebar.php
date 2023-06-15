@@ -3,7 +3,7 @@
     //echo $url;
     $dashboard = "";
     $icons= "";
-    $map = "";
+    $myclients = "";
     $notifications = "";
     $user = "";
     $clients = "";
@@ -16,8 +16,8 @@
     elseif ($url == "/fcffl-web/fcfl-lfc-dir/icons.php") {
         $icons = "active";
     }
-    elseif ($url == "/fcffl-web/fcfl-lfc-dir/map.php") {
-        $map = "active";
+    elseif ($url == "/fcffl-web/fcfl-lfc-dir/myclients.php") {
+        $myclients = "active";
     }
     elseif ($url == "/fcffl-web/fcfl-lfc-dir/notifications.php") {
       $notifications = "active";
@@ -61,10 +61,10 @@
               <p>Icons</p>
             </a>
           </li>
-          <li class="<?php echo "$map";  ?>">
-            <a href="./map.php">
-              <i class="tim-icons icon-pin"></i>
-              <p>Map</p>
+          <li class="<?php echo "$myclients";  ?>">
+            <a href="./myclients.php">
+              <i class="tim-icons icon-planet"></i>
+              <p>My Clients</p>
             </a>
           </li>
           <li class="<?php echo "$notifications";  ?>">
