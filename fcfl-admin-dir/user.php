@@ -62,7 +62,7 @@ if(!isset($_SESSION["aid"])) {
                     <div class="col-md-6 pr-md-1">
                       <div class="form-group">
                         <label>First Name</label>
-                        <input type="text" class="form-control" placeholder="Company" value="<?php echo $row['firstname'];?>" name="firstname">
+                        <input type="text" class="form-control" placeholder="First Name" value="<?php echo $row['firstname'];?>" name="firstname">
                       </div>
                     </div>
                     <div class="col-md-6 pl-md-1">
@@ -105,6 +105,20 @@ if(!isset($_SESSION["aid"])) {
                       <div class="form-group">
                         <label>About Me</label>
                         <textarea rows="4" cols="80" class="form-control" placeholder="Here can be your description" name="about_me"><?php echo $row['about_me'];?></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 pr-md-1">
+                      <div class="form-group">
+                        <label>Old password</label>
+                        <input type="text" class="form-control" placeholder="Old password" name="oldpass">
+                      </div>
+                    </div>
+                    <div class="col-md-6 pl-md-1">
+                      <div class="form-group">
+                        <label>New password</label>
+                        <input type="text" class="form-control" placeholder="New password" name="newpass">
                       </div>
                     </div>
                   </div>
