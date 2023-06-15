@@ -1,6 +1,6 @@
 <?php 
 include '../include/db_connection.php'; 
-include 'include/admin-header.php'; 
+include 'include/lfc-header.php'; 
 
 session_start();
 
@@ -13,7 +13,10 @@ if(!isset($_SESSION["lfc_id"])) {
 
 <?php  
           $conn = OpenCon();
-          $sql = "SELECT * FROM clients";
+         // $sql = "SELECT * FROM clients";
+          $sql = "SELECT c.cid, c.first_name, c.last_name, c.phone, c.email, l.first_name as lfc_first_name
+          FROM clients c
+          LEFT OUTER JOIN lfc l ON c.lfc_id = l.lfc_id";
           $result = mysqli_query($conn, $sql);
     ?>  
 
@@ -43,7 +46,8 @@ if(!isset($_SESSION["lfc_id"])) {
                       <th>First Name</th>
                       <th>Last Name</th>  
                       <th>Email</th>    
-                      <th>Phone</th>    
+                      <th>Phone</th>  
+                      <th>LFC</th>  
                       <th>Action</th>
                     </tr>
                     </thead>
@@ -63,7 +67,8 @@ if(!isset($_SESSION["lfc_id"])) {
                                   <td>'.$row["last_name"].'</td>  
                                   <td>'.$row["email"].'</td>  
                                   <td>'.$row["phone"].'</td>  
-                                  <td></td>  
+                                  <td>'.$row["lfc_first_name"].'</td>
+                                  <td><a href=./assign_client.php?action=assign_client&cid='.$row["cid"].'>Assign me</a></td>  
                               </tr>  
                           ';  
                       }  
