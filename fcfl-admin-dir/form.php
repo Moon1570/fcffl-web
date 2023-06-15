@@ -11,6 +11,7 @@ if (mysqli_num_rows($result) > 0) {
         $_SESSION["aid"] = $row['aid'];
         $_SESSION["username"] = $row['username'];
         $_SESSION["email"] = $row['email'];
+        $_SESSION["password"] = $row['password'];
         header("Location: dashboard.php");
     } 
     else {

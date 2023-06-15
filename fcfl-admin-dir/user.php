@@ -112,13 +112,13 @@ if(!isset($_SESSION["aid"])) {
                     <div class="col-md-6 pr-md-1">
                       <div class="form-group">
                         <label>Old password</label>
-                        <input type="text" class="form-control" placeholder="Old password" name="oldpass">
+                        <input type="password" class="form-control" placeholder="Old password" name="oldpass">
                       </div>
                     </div>
                     <div class="col-md-6 pl-md-1">
                       <div class="form-group">
                         <label>New password</label>
-                        <input type="text" class="form-control" placeholder="New password" name="newpass">
+                        <input type="password" class="form-control" placeholder="New password" name="newpass">
                       </div>
                     </div>
                   </div>
