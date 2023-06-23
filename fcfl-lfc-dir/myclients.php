@@ -17,6 +17,7 @@ if(!isset($_SESSION["lfc_id"])) {
          // $sql = "SELECT * FROM clients";
           $sql = "SELECT * FROM clients c WHERE c.lfc_id = $lfc_id";
           $result = mysqli_query($conn, $sql);
+          CloseCon($conn);
     ?>  
 
 <body class="">
@@ -67,7 +68,7 @@ if(!isset($_SESSION["lfc_id"])) {
                                   <td>'.$row["phone"].'</td>  
                                   <td><a class="btn" href=./view_client.php?action=view_client&cid='.$row["cid"].'>View Client</a></td>  
                               </tr>  
-                          ';  
+                          '; 
                       }  
                   ?>  
                     </tbody>
