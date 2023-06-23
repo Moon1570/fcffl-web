@@ -12,6 +12,7 @@ if (mysqli_num_rows($result) > 0) {
         $_SESSION["username"] = $row['username'];
         $_SESSION["email"] = $row['email'];
         $_SESSION["password"] = $row['password'];
+        $_SESSION['sidebar-color'] = "blue";
         header("Location: dashboard.php");
     } 
     else {

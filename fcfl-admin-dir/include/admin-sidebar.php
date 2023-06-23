@@ -9,7 +9,7 @@
     $clients = "";
     $typography = "";
     $lfc = "";
-
+    session_start();
     if ($url == "/fcffl-web/fcfl-admin-dir/dashboard.php") {
         $dashboard = "active";
     } 
@@ -35,7 +35,7 @@
       $lfc = "active";
     }
     ?>
-<div class="sidebar" data="blue">
+<div class="sidebar" data="<?php echo $_SESSION['sidebar-color']?>">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
     -->
