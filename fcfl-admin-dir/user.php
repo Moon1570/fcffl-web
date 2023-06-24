@@ -96,7 +96,7 @@ if(!isset($_SESSION["aid"])) {
                     <div class="col-md-4 pl-md-1">
                       <div class="form-group">
                         <label>Postal Code</label>
-                        <input type="number" class="form-control" placeholder="Postal Code" value="<?php echo $row['postal_code'];?>" name="postal_code">
+                        <input type="text" class="form-control" placeholder="Postal Code" value="<?php echo $row['postal_code'];?>" name="postal_code">
                       </div>
                     </div>
                   </div>
