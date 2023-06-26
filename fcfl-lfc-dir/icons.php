@@ -1,10 +1,10 @@
 <?php 
 include '../include/db_connection.php'; 
-include 'include/admin-header.php'; 
+include 'include/lfc-header.php'; 
 
 session_start();
 
-if(!isset($_SESSION["aid"])) {
+if(!isset($_SESSION["lfc_id"])) {
     header("Location:index.php");
   }
 
@@ -20,8 +20,8 @@ if(!isset($_SESSION["aid"])) {
 <body class="">
   <div class="wrapper">
     <?php
-      include 'include/admin-sidebar.php'; 
-      include 'include/admin-navbar.php'; 
+      include 'include/lfc-sidebar.php'; 
+      include 'include/lfc-navbar.php'; 
     ?>
       <!-- End Navbar -->
       <div class="content">
@@ -641,5 +641,5 @@ if(!isset($_SESSION["aid"])) {
         </div>
       </div>
       <?php
-        include 'include/admin-footer.php'; 
+        include 'include/lfc-footer.php'; 
      ?>

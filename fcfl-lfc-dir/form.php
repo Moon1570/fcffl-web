@@ -4,8 +4,6 @@ $conn = OpenCon();
 $sql = "SELECT * FROM lfc";
 $result = mysqli_query($conn, $sql);
 session_start();
-$email = $_POST['email'];
-echo "<script>alert('$email hnh')</script>";
 
 //define concat function
 function concat($str1, $str2){

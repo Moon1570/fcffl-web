@@ -13,11 +13,11 @@ if(!isset($_SESSION["lfc_id"])) {
 
 <?php  
           $conn = OpenCon();
+          $lfc_id = $_SESSION["lfc_id"];
          // $sql = "SELECT * FROM clients";
-          $sql = "SELECT c.cid, c.first_name, c.last_name, c.phone, c.email, l.first_name as lfc_first_name
-          FROM clients c
-          LEFT OUTER JOIN lfc l ON c.lfc_id = l.lfc_id";
+          $sql = "SELECT * FROM clients c WHERE c.lfc_id = $lfc_id";
           $result = mysqli_query($conn, $sql);
+          CloseCon($conn);
     ?>  
 
 <body class="">
@@ -47,7 +47,6 @@ if(!isset($_SESSION["lfc_id"])) {
                       <th>Last Name</th>  
                       <th>Email</th>    
                       <th>Phone</th>  
-                      <th>LFC</th>  
                       <th>Action</th>
                     </tr>
                     </thead>
@@ -67,10 +66,9 @@ if(!isset($_SESSION["lfc_id"])) {
                                   <td>'.$row["last_name"].'</td>  
                                   <td>'.$row["email"].'</td>  
                                   <td>'.$row["phone"].'</td>  
-                                  <td>'.$row["lfc_first_name"].'</td>
-                                  <td><a class="btn" href=./assign_client.php?action=assign_client&cid='.$row["cid"].'>Assign me</a></td>  
+                                  <td><a class="btn" href=./view_client.php?action=view_client&cid='.$row["cid"].'>View Client</a></td>  
                               </tr>  
-                          ';  
+                          '; 
                       }  
                   ?>  
                     </tbody>
