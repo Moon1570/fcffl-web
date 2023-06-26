@@ -9,7 +9,6 @@
     $clients = "";
     $typography = "";
     $lfc = "";
-    session_start();
     if ($url == "/fcffl-web/fcfl-admin-dir/dashboard.php") {
         $dashboard = "active";
     } 

@@ -15,7 +15,7 @@ if(!isset($_SESSION["aid"])) {
           $conn = OpenCon();
           $sql = "SELECT * FROM clients";
           $result = mysqli_query($conn, $sql);
-    ?>  
+?>  
 
 <body class="">
   <div class="wrapper">
@@ -27,8 +27,15 @@ if(!isset($_SESSION["aid"])) {
       <!-- Navbar -->
       
       <!-- End Navbar -->
+      
       <div class="content">
         <div class="row">
+          <form action="assign_lfc.php" method="post">
+          <input type="number" name="from" placeholder="From">
+          <input type="number" name="to" placeholder="To">
+          <input type="number" name="lfc" placeholder="LFC ID">
+          <input type="submit" name="submit" value="Assign">
+        </form>
           <div class="col-md-12">
             <div class="card ">
               <div class="card-header">
