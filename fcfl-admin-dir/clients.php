@@ -30,12 +30,7 @@ if(!isset($_SESSION["aid"])) {
       
       <div class="content">
         <div class="row">
-          <form action="assign_lfc.php" method="post">
-          <input type="number" name="from" placeholder="From">
-          <input type="number" name="to" placeholder="To">
-          <input type="number" name="lfc" placeholder="LFC ID">
-          <input type="submit" name="submit" value="Assign">
-        </form>
+          
           <div class="col-md-12">
             <div class="card ">
               <div class="card-header">
@@ -52,6 +47,7 @@ if(!isset($_SESSION["aid"])) {
                       <th>Email</th>    
                       <th>Phone</th>    
                       <th>Action</th>
+                      <th>LFC ID</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -70,7 +66,19 @@ if(!isset($_SESSION["aid"])) {
                                   <td>'.$row["last_name"].'</td>  
                                   <td>'.$row["email"].'</td>  
                                   <td>'.$row["phone"].'</td>  
-                                  <td><a href=tel:'.$phn.'>Call</a> || Mail</td>  
+                                  <td><a href=tel:'.$phn.'>Call</a> || Mail</td>
+                                  <td>
+                                    <select name="lfc" id="lfc" onchange="modifySession(this.value)">
+                                    ';
+                                      
+                                      $sqll="SELECT * FROM lfc";
+                                      $resultt = mysqli_query($conn, $sqll);
+                                      while($rows=mysqli_fetch_array($resultt)){
+                                        $name=concat($rows['first_name'],$rows['last_name']);
+                                        echo '<option value="'.$rows['lfc_id'].'">'.$name.'</option>';
+                                      }
+                                      
+                                  </td>  
                               </tr>  
                           ';  
                       }  
@@ -94,3 +102,26 @@ if(!isset($_SESSION["aid"])) {
             $('#clients_data').DataTable();  
         }); 
   </script>
+  <script type='text/javascript'>
+
+/* If function used, sends new data from input field to the
+   server, then gets response from server if any. */
+
+function modifySession (newValue) {
+
+    /* You could always check the newValue here before making
+       the request so you know if its set or needs filtered. */
+
+    var xhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            usedData = this.responseText; //response from php script
+            console.log(usedData);
+        }
+    };
+
+xhttp.open("GET", "include/modifySession.php?newData="+newValue, true);
+xhttp.send(); 
+}
+</script>

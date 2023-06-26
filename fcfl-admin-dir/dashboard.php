@@ -14,9 +14,34 @@ if(!isset($_SESSION["aid"])) {
 
 <?php  
           $conn = OpenCon();
-          $sql = "SELECT * FROM clients";
+          $sql = "SELECT * FROM lfc";
           $result = mysqli_query($conn, $sql);
-    ?>  
+          CloseCon($conn);
+?>
+
+<?php
+      function concat($str1, $str2){
+        $str1 = trim($str1);
+        $str2 = trim($str2);
+        $str1 = ucfirst($str1);
+        $str2 = ucfirst($str2);
+        return $str1." ".$str2;
+      }
+      if(isset($_POST['submit'])){
+        $conn = OpenCon();
+        $sqll="SELECT * FROM lfc";
+        $resultt = mysqli_query($conn, $sqll);
+        while($rows=mysqli_fetch_array($resultt)){
+          $name=concat($rows['first_name'],$rows['last_name']);
+          if($name==$_POST['lfc']){
+            $lfc_id=$rows['lfc_id'];
+            break;
+          }
+        }
+        $sql2="UPDATE clients SET lfc_id =".$lfc_id."WHERE cid IN (SELECT cid FROM ( select cid from clients order by cid asc limit ".$_POST['from'].",".$_POST['from'].")l)";
+        mysqli_query($conn, $sql2);
+      }
+?>
 
 <body class="">
   <div class="wrapper">
@@ -115,7 +140,7 @@ if(!isset($_SESSION["aid"])) {
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-6 col-md-12">
+          <!-- <div class="col-lg-6 col-md-12">
             <div class="card card-tasks">
               <div class="card-header ">
                 <h6 class="title d-inline">Tasks(5)</h6>
@@ -266,8 +291,8 @@ if(!isset($_SESSION["aid"])) {
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-lg-6 col-md-12">
+          </div> -->
+          <div class="col-lg-12 col-md-12">
             <div class="card ">
               <div class="card-header">
                 <h4 class="card-title"> Simple Table</h4>
@@ -392,6 +417,33 @@ if(!isset($_SESSION["aid"])) {
                       </tr>
                     </tbody>
                   </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12" id="LFC">
+            <div class="card ">
+              <div class="card-header">
+                <h4 class="card-title"> Add LFC to Clients</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <form action="assign_lfc.php" method="post">
+                    <label for="AssignLFC" class="form-label">Starting Row Number</label>
+                    <input type="number" class="form-control" name="from" placeholder="From">
+                    <label for="AssignLFC" class="form-label">Number of Rows</label>
+                    <input type="number" class="form-control" name="to" placeholder="To">
+                    <label for="AssignLFC" class="form-label">LFC Name</label><br>
+                    <input type="text" class="form-control" list="datalistOptions" name="lfc" placeholder="LFC Name">
+                    <datalist id="datalistOptions">
+                      <?php
+                      while($row = mysqli_fetch_array($result)) {
+                        echo "<option value='".trim($row['first_name'])." ".trim($row['last_name'])."'>";
+                      }
+                      ?>
+                    </datalist>
+                    <input type="submit" class="btn btn-primary" name="submit" value="Assign">
+                  </form>
                 </div>
               </div>
             </div>
