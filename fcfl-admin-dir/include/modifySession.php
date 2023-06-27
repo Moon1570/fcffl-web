@@ -1,0 +1,1 @@
+<?php session_start(); $_SESSION['sidebar-color'] = $_GET['newData']; echo $_SESSION['sidebar-color'];?>

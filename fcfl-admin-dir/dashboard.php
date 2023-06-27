@@ -8,15 +8,19 @@ session_start();
 if(!isset($_SESSION["aid"])) {
     header("Location:index.php");
   }
+  
 
 ?>
 
 
 <?php  
           $conn = OpenCon();
-          $sql = "SELECT * FROM clients";
+          $sql = "SELECT * FROM lfc";
           $result = mysqli_query($conn, $sql);
-    ?>  
+          $sqll = "SELECT * FROM quote_request";
+          $resultt = mysqli_query($conn, $sqll);
+          CloseCon($conn);
+?>
 
 <body class="">
   <div class="wrapper">
@@ -115,7 +119,7 @@ if(!isset($_SESSION["aid"])) {
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-6 col-md-12">
+          <!-- <div class="col-lg-6 col-md-12">
             <div class="card card-tasks">
               <div class="card-header ">
                 <h6 class="title d-inline">Tasks(5)</h6>
@@ -266,8 +270,8 @@ if(!isset($_SESSION["aid"])) {
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-lg-6 col-md-12">
+          </div> -->
+          <div class="col-lg-12 col-md-12">
             <div class="card ">
               <div class="card-header">
                 <h4 class="card-title"> Simple Table</h4>
@@ -281,117 +285,93 @@ if(!isset($_SESSION["aid"])) {
                           Name
                         </th>
                         <th>
-                          Country
+                          Email
                         </th>
                         <th>
-                          City
+                          Phone
                         </th>
-                        <th class="text-center">
-                          Salary
+                        <th>
+                          Departure Airport
+                        </th>
+                        <th>
+                          Arrival Airport
+                        </th>
+                        <th>
+                          Arrival Date
+                        </th>
+                        <th>
+                          PAX
+                        </th>
+                        <th>
+                          Type
+                        </th>
+                        <th>
+                          Note
+                        </th>
+                        <th>
+                          Time Received
                         </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td>
-                          Dakota Rice
-                        </td>
-                        <td>
-                          Niger
-                        </td>
-                        <td>
-                          Oud-Turnhout
-                        </td>
-                        <td class="text-center">
-                          $36,738
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Minerva Hooper
-                        </td>
-                        <td>
-                          Curaçao
-                        </td>
-                        <td>
-                          Sinaai-Waas
-                        </td>
-                        <td class="text-center">
-                          $23,789
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Sage Rodriguez
-                        </td>
-                        <td>
-                          Netherlands
-                        </td>
-                        <td>
-                          Baileux
-                        </td>
-                        <td class="text-center">
-                          $56,142
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Philip Chaney
-                        </td>
-                        <td>
-                          Korea, South
-                        </td>
-                        <td>
-                          Overland Park
-                        </td>
-                        <td class="text-center">
-                          $38,735
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Doris Greene
-                        </td>
-                        <td>
-                          Malawi
-                        </td>
-                        <td>
-                          Feldkirchen in Kärnten
-                        </td>
-                        <td class="text-center">
-                          $63,542
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Mason Porter
-                        </td>
-                        <td>
-                          Chile
-                        </td>
-                        <td>
-                          Gloucester
-                        </td>
-                        <td class="text-center">
-                          $78,615
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Jon Porter
-                        </td>
-                        <td>
-                          Portugal
-                        </td>
-                        <td>
-                          Gloucester
-                        </td>
-                        <td class="text-center">
-                          $98,615
-                        </td>
+                        <?php
+                        while($rows = mysqli_fetch_array($resultt))
+                        {
+                          echo "<tr>";
+                          echo "<td>" . $rows['first_name'] ." ".$rows['last_name']. "</td>";
+                          echo "<td>" . $rows['email'] . "</td>";
+                          echo "<td>" . $rows['phone'] . "</td>";
+                          echo "<td>" . $rows['departure_airport'] . "</td>";
+                          echo "<td>" . $rows['arrival_airport'] . "</td>";
+                          echo "<td>" . $rows['arrival_date'] . "</td>";
+                          echo "<td>" . $rows['pax'] . "</td>";
+                          if($rows['type'] == 0){
+                            echo "<td> One Way </td>";
+                          }else if($rows['type'] == 1){
+                            echo "<td> Round Trip </td>";
+                          }else if($rows['type'] == 2){
+                            echo "<td> Multi City </td>";
+                          }
+                          echo '<td><textarea style="background-color:white;" disabled>' . $rows['note'] . '</textarea></td>';
+                          $datetime_1 = $rows['timestamp'];  
+                          $datetime_2 = date("Y-m-d H:i:s");
+                          $start_datetime = new DateTime($datetime_1); 
+                          $diff = $start_datetime->diff(new DateTime($datetime_2)); 
+                          echo "<td>" . $diff->days . " days ".$diff->h." hours ".$diff->i." minutes</td>";
+                          echo "</tr>";
+                        }
+                        ?>
                       </tr>
                     </tbody>
                   </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12" id="LFC">
+            <div class="card ">
+              <div class="card-header">
+                <h4 class="card-title"> Add LFC to Clients</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <form action="assign_lfc.php" method="post">
+                    <label for="AssignLFC" class="form-label">Starting Row Number</label>
+                    <input type="number" class="form-control" name="from" placeholder="From">
+                    <label for="AssignLFC" class="form-label">Number of Rows</label>
+                    <input type="number" class="form-control" name="to" placeholder="To">
+                    <label for="AssignLFC" class="form-label">LFC Name</label><br>
+                    <input type="text" class="form-control" list="datalistOptions" name="lfc" placeholder="LFC Name">
+                    <datalist id="datalistOptions">
+                      <?php
+                      while($row = mysqli_fetch_array($result)) {
+                        echo "<option value='".trim($row['first_name'])." ".trim($row['last_name'])."'>";
+                      }
+                      ?>
+                    </datalist>
+                    <input type="submit" class="btn btn-primary" name="submit" value="Assign">
+                  </form>
                 </div>
               </div>
             </div>
