@@ -13,7 +13,7 @@ if(!isset($_SESSION["aid"])) {
 
 <?php  
           $conn = OpenCon();
-          $sql = "SELECT * FROM clients";
+          $sql = "SELECT clients.*,lfc.first_name AS lfname, lfc.last_name AS llname FROM clients LEFT JOIN lfc ON lfc.lfc_id=clients.lfc_id";
           $result = mysqli_query($conn, $sql);
 ?>  
 
@@ -47,7 +47,7 @@ if(!isset($_SESSION["aid"])) {
                       <th>Email</th>    
                       <th>Phone</th>    
                       <th>Action</th>
-                      <th>LFC ID</th>
+                      <th>LFC name</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -67,18 +67,7 @@ if(!isset($_SESSION["aid"])) {
                                   <td>'.$row["email"].'</td>  
                                   <td>'.$row["phone"].'</td>  
                                   <td><a href=tel:'.$phn.'>Call</a> || Mail</td>
-                                  <td>
-                                    <select name="lfc" id="lfc" onchange="modifySession(this.value)">
-                                    ';
-                                      
-                                      $sqll="SELECT * FROM lfc";
-                                      $resultt = mysqli_query($conn, $sqll);
-                                      while($rows=mysqli_fetch_array($resultt)){
-                                        $name=concat($rows['first_name'],$rows['last_name']);
-                                        echo '<option value="'.$rows['lfc_id'].'">'.$name.'</option>';
-                                      }
-                                      
-                                  </td>  
+                                  <td>'.$row["lfname"]." ".$row["llname"].'</td>  
                               </tr>  
                           ';  
                       }  
