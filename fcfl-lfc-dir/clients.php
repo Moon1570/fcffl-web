@@ -9,8 +9,6 @@ if(!isset($_SESSION["lfc_id"])) {
   }
 
 ?>
-
-
 <?php  
           $conn = OpenCon();
          // $sql = "SELECT * FROM clients";

@@ -19,9 +19,6 @@ if(!isset($_SESSION["lfc_id"])) {
       include 'include/lfc-navbar.php'; 
     ?>
   
-      <!-- Navbar -->
-      
-      <!-- End Navbar -->
       <div class="content">
         <div class="row">
           <div class="col-12">
