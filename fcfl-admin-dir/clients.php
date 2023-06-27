@@ -13,9 +13,9 @@ if(!isset($_SESSION["aid"])) {
 
 <?php  
           $conn = OpenCon();
-          $sql = "SELECT * FROM clients";
+          $sql = "SELECT clients.*,lfc.first_name AS lfname, lfc.last_name AS llname FROM clients LEFT JOIN lfc ON lfc.lfc_id=clients.lfc_id";
           $result = mysqli_query($conn, $sql);
-    ?>  
+?>  
 
 <body class="">
   <div class="wrapper">
@@ -27,8 +27,10 @@ if(!isset($_SESSION["aid"])) {
       <!-- Navbar -->
       
       <!-- End Navbar -->
+      
       <div class="content">
         <div class="row">
+          
           <div class="col-md-12">
             <div class="card ">
               <div class="card-header">
@@ -45,6 +47,7 @@ if(!isset($_SESSION["aid"])) {
                       <th>Email</th>    
                       <th>Phone</th>    
                       <th>Action</th>
+                      <th>LFC name</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -63,7 +66,8 @@ if(!isset($_SESSION["aid"])) {
                                   <td>'.$row["last_name"].'</td>  
                                   <td>'.$row["email"].'</td>  
                                   <td>'.$row["phone"].'</td>  
-                                  <td><a href=tel:'.$phn.'>Call</a> || Mail</td>  
+                                  <td><a href=tel:'.$phn.'>Call</a> || Mail</td>
+                                  <td>'.$row["lfname"]." ".$row["llname"].'</td>  
                               </tr>  
                           ';  
                       }  
@@ -87,3 +91,26 @@ if(!isset($_SESSION["aid"])) {
             $('#clients_data').DataTable();  
         }); 
   </script>
+  <script type='text/javascript'>
+
+/* If function used, sends new data from input field to the
+   server, then gets response from server if any. */
+
+function modifySession (newValue) {
+
+    /* You could always check the newValue here before making
+       the request so you know if its set or needs filtered. */
+
+    var xhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            usedData = this.responseText; //response from php script
+            console.log(usedData);
+        }
+    };
+
+xhttp.open("GET", "include/modifySession.php?newData="+newValue, true);
+xhttp.send(); 
+}
+</script>

@@ -32,9 +32,9 @@
         <li class="adjustments-line">
           <a href="javascript:void(0)" class="switch-trigger background-color">
             <div class="badge-colors text-center">
-              <span class="badge filter badge-primary " data-color="primary"></span>
-              <span class="badge filter badge-info active" data-color="blue"></span>
-              <span class="badge filter badge-success" data-color="green"></span>
+              <span class="badge filter badge-primary " data-color="primary" onclick="modifySession('primary')"></span>
+              <span class="badge filter badge-info active" data-color="blue" onclick="modifySession('blue')"></span>
+              <span class="badge filter badge-success" data-color="green" onclick="modifySession('green')"></span>
             </div>
             <div class="clearfix"></div>
           </a>
@@ -179,6 +179,7 @@
       });
     });
   </script>
+
 
 </body>
 
