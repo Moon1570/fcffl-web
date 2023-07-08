@@ -18,7 +18,6 @@ $conn = OpenCon();
 
                   <?php
 
-                    $secretKey = "6Lc_WEQmAAAAABeRxx76nGkFra6n1xsGQaOq12BZ";
                     $postData = $valErr = $message = ''; 
                     $status = 'error'; 
  
@@ -36,9 +35,28 @@ $conn = OpenCon();
                         $lname = $_POST["lname"];
                         $email = $_POST["email"];
                         $phone = $_POST["phone"];
+                        echo $phone;
                         $pax = $_POST["pax"];
                         $flexibility = $_POST["flexibility"];
                         $note = $_POST["note"];
+                        //todays date
+                        $date = date("Y-m-d");
+
+
+                        if(!empty($$departure_date)){
+                          if($date > $departure_date){
+                            $valErr .= "Departure date must be greater than today's date <br>";
+                          }
+                        }
+                        if(empty($arrival_date)){}
+                        else{
+                          if($departure_date > $arrival_date){
+                            $valErr .= "Arrival date must be greater than departure date <br>";
+                          }
+                          if($date > $arrival_date){
+                            $valErr .= "Arrival date must be greater than today's date <br>";
+                          }
+                        }
 
 
                         if (empty($fname)){
@@ -57,7 +75,7 @@ $conn = OpenCon();
 
                         if(empty($valErr)){
 
-                          $to = "minhaj@stealthai.net, moon.cse4.bu@gmail.com, tanzil@fortmedia.net";
+                          $to = "minhaj@stealthai.net, moon.cse4.bu@gmail.com, jason@firstclassflightforless.com";
                                   $subject = "New Lead from FCFL";
         
                                   $mail = "
@@ -129,65 +147,53 @@ $conn = OpenCon();
                                   $headers .= 'From: <reception@firstclassflightforless.com>' . "\r\n";
                                   $headers .= 'Cc: tanzilrimu@gmail.com ' . "\r\n";
         
-                                  mail($to,$subject,$mail,$headers);
-        
-                                  $message = "Request has been sent! Our team will contact you soon!";
-                                  $status = 'success';  
-                                  $postData = '';  
+                                mail($to,$subject,$mail,$headers);
 
 
-                            if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])){  
-    
-                              // Google reCAPTCHA verification API Request  
-                              $api_url = 'https://www.google.com/recaptcha/api/siteverify';  
-                              $resq_data = array(  
-                                  'secret' => $secretKey,  
-                                  'response' => $_POST['g-recaptcha-response'],  
-                                  'remoteip' => $_SERVER['REMOTE_ADDR']  
-                              );  
-                    
-                              $curlConfig = array(  
-                                  CURLOPT_URL => $api_url,  
-                                  CURLOPT_POST => true,  
-                                  CURLOPT_RETURNTRANSFER => true,  
-                                  CURLOPT_POSTFIELDS => $resq_data  
-                              );  
-                    
-                              $ch = curl_init();  
-                              curl_setopt_array($ch, $curlConfig);  
-                              $response = curl_exec($ch);  
-                              curl_close($ch);  
-                    
-                              // Decode JSON data of API response in array  
-                              $responseData = json_decode($response);  
-                    
-                              // If the reCAPTCHA API response is valid  
-                              if($responseData->success){ 
-                                $message .= 'Captcha verified successfully.';
-                                
-                                if($conn === false){
-                                  die("ERROR: Could not connect. "
-                                      . mysqli_connect_error());
-                                }
-                              
-        
-                                $sqlquery = "INSERT INTO `quote_request` (`id`, `fname`, `lname`, `email`, `phone`, `departure_airport`, `departure_date`, `arrival_airport`, `arrival_date`, `pax`, `type`, `flexibility`, `note`, `timestamp`) 
-                                VALUES (NULL, '$fname', '$lname', '$email', '$phone', '$departure_airport', '$departure_date', '$arrival_airport', '$arrival_date', '$pax', '$type', '$flexibility', '$note', current_timestamp())";
-                                
-        
-                                if ($conn->query($sqlquery) === TRUE) {
-                                   $message="Our team will contact you shortly. Please check your email and spam folder.";
+
+                                //Check if the email already exists
+                                $sql = "SELECT c.cid, c.first_name, c.last_name, c.phone, c.email, c.lfc_id, l.first_name as lfc_fname
+                                FROM clients as c
+                                JOIN lfc as l ON c.lfc_id = l.lfc_id
+                                WHERE c.email = '$email'";
+                                $result = mysqli_query($conn, $sql);
+                                if (mysqli_num_rows($result) > 0) {
+                                  // Client already exists
+                                  //Get the client id
+                                  $row = mysqli_fetch_assoc($result);
+                                  $cid = $row["cid"];
+                                  $lfc_name = $row["lfc_fname"];
+                                  $lfc_id = $row["lfc_id"];
+
+                                  $postData = '';      
+
+                                  //Insert into quote_request table
+                                  $sql = "INSERT INTO quote_request (id, cid, type, departure_airport, departure_date, arrival_airport, arrival_date, pax, flexibility, note, status)
+                                  VALUES (NULL, '$cid', '$type', '$departure_airport', '$departure_date', '$arrival_airport', '$arrival_date', '$pax', '$flexibility', '$note', '0')";
+                                  if (mysqli_query($conn, $sql)) {
+                                    $message .= "Welcome back, $fname! $lfc_name will contact you soon <br>"; 
+                                  } else {
+                                    $message .= "Error: " . $sql . "<br>" . mysqli_error($conn);
+                                  }
                                 } else {
-                                  echo "ERROR: Hush! Sorry $sqlquery. ". mysqli_error($conn);
-                                }
-                                    
-    
-                              }else{  
-                                  $message .= 'The reCAPTCHA verification.';  
-                              }  
-                          }else{  
-                              $message = 'Something went wrong, please try again.';  
-                          }  
+                                  // Client does not exist
+                                  //Insert into clients table
+                                  $sql = "INSERT INTO clients (cid, first_name, last_name, phone, email, lfc_id)
+                                  VALUES (NULL, '$fname', '$lname', '$phone', '$email', '1')";
+                                  if (mysqli_query($conn, $sql)) {
+                                    $cid = mysqli_insert_id($conn);
+                                    //Insert into quote_request table
+                                    $sql = "INSERT INTO quote_request (id, cid, type, departure_airport, departure_date, arrival_airport, arrival_date, pax, flexibility, note, status)
+                                    VALUES (NULL, '$cid', '$type', '$departure_airport', '$departure_date', '$arrival_airport', '$arrival_date', '$pax', '$flexibility', '$note', '0')";
+                                    if (mysqli_query($conn, $sql)) {
+                                      $message .= "Thanks, $fname! One of or LFC will contact you soon <br>"; 
+                                    } else {
+                                      $message .= "Error: " . $sql . "<br>" . mysqli_error($conn);
+                                    }
+                                  } else {
+                                    $message .= "Error: " . $sql . "<br>" . mysqli_error($conn);
+                                  }
+                                }                            
 
                         } else{
                           $message = $valErr;
@@ -203,8 +209,18 @@ $conn = OpenCon();
                         ?>
 
 
-                  <form style="margin-top: 0%; z-index:3;" class="index.php" action="" method="post" id="quoteForm" name="quoteForm" >
+                  <form style="margin-top: 0%; z-index:3;"  action="" method="post" id="quoteForm" name="quoteForm" >
                     <div class="row row-20 row-fix">
+                      <?php if($valErr != ''){ ?>
+                          <div class="alert alert-danger" role="alert">
+                            <?php echo $valErr; ?>
+                          </div>
+                      <?php } ?>
+                      <?php if($message != ''){ ?>
+                          <div class="alert alert-warning" role="alert">
+                            <?php echo $message; ?>
+                          </div>
+                      <?php } ?>
                     <div class="col-sm-12" >
                         <label class="form-label-outside">Trip Type</label>
                         <div class="form-wrap form-wrap-validation" style="margin-left:10%">
@@ -764,17 +780,15 @@ function onSubmit(token) {
   }
   else{
     document.getElementById("phone").value = iti.getNumber();
+    document.quoteForm.submit();
+
   }
   // add the country code to the number
-  var text = iti.getSelectedCountryData().dialCode + input.value;
+  //var text = iti.getSelectedCountryData().dialCode + input.value;
 
   // set the number with the country code in the input field
-  console.log("reached");
+ // document.getElementById(  "phone").value = text;
 
-  document.getElementById("phone").value = text;
-  console.log(text);
-
-    document.quoteForm.submit();
 }
   
 function number(){
