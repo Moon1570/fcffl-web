@@ -110,17 +110,20 @@ if (isset($_GET['action']) && $_GET['action'] == 'view_client') {
                 <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> Client Requests</h3>
               </div>
               <div class="card-body">
-                <table class="table table-bordered" id="quote_request">
+                <table class="table table-hover" id="quote_request">
+                <thead>
                     <tr>
                         <td>Type</td>
                         <td>Dept. Airport</td>
                         <td>Date</td>
                         <td>Arr. Airport</td>
                         <td>Date</td>
-                        <td>Passengers</td>
-                        <td>Note</td>
                         <td>Timestamp</td>
+                        <td>Status</td>
+                        <td>Action</td>
                     </tr>
+                    </thead>
+                    
 
                     <?php
                         while($row = mysqli_fetch_array($result))  
@@ -132,17 +135,74 @@ if (isset($_GET['action']) && $_GET['action'] == 'view_client') {
                           } else if ($row["type"] == "2") {
                             $type = "Multi-Leg";
                           }
+
+            
+                          $status = "";
+                          if ($row["status"] == "0") {
+                            $status = "Fresh";
+                          }
+                          else if ($row["status"] == "1") {
+                            $status = "Processing";
+                          }
+                          else if ($row["status"] == "2") {
+                            $status = "No flight found";
+                          }
+                          else if ($row["status"] == "3") {
+                            $status = "Missed Call";
+                          }
+                          else if ($row["status"] == "4") {
+                            $status = "Will get back later";
+                          }
+                          else if ($row["status"] == "5") {
+                            $status = "Quote send";
+                          }
+                          else if ($row["status"] == "6") {
+                            $status = "Asking for lower price";
+                          }
+                          else if ($row["status"] == "7") {
+                            $status = "Sold";
+                          }
+                          else if ($row["status"] == "8") {
+                            $status = "Reject";
+                          }
+                          else if ($row["status"] == "9") {
+                            $status = "Found cheaper elsewhere";
+                          }
+                          else if ($row["status"] == "10") {
+                            $status = "Scam";
+                          }
+                          else if ($row["status"] == "11") {
+                            $status = "Unwilling to share CC";
+                          }
+
                             echo '  
+                            <tbody>
                             <tr>  
                                 <td>'.$type.'</td>  
                                 <td>'.$row["departure_airport"].'</td>  
                                 <td>'.$row["departure_date"].'</td>  
                                 <td>'.$row["arrival_airport"].'</td>  
                                 <td>'.$row["arrival_date"].'</td>  
-                                <td>'.$row["pax"].'</td>  
-                                <td>'.$row["note"].'</td>  
                                 <td>'.$row["timestamp"].'</td>  
-                            </tr>  
+                                <td>
+                                <select class="form-select form-select-sm">
+                                  <option value="'.$row["status"].'" selected>'.$status.'</option>
+                                  <option value="0">Fresh</option>
+                                  <option value="1">Processing</option>
+                                  <option value="2">No flight found</option>
+                                  <option value="3">Missed Call</option>
+                                  <option value="4">Will get back later</option>
+                                  <option value="5">Quote send</option>
+                                  <option value="6">Asking for lower price</option>
+                                  <option value="7">Sold</option>
+                                  <option value="8">Reject</option>
+                                  <option value="9">Found cheaper elsewhere</option>
+                                  <option value="10">Scam</option>
+                                  <option value="11">Unwilling to share CC</option>
+                                </select>
+                                </td>
+                                <td><a href="./view_quote.php?quote_id='.$row["id"].'" class="btn btn-warning btn-sm">View</a></td>
+                            </tr>  </tbody>
                             ';  
                         }
                     ?>
@@ -165,6 +225,11 @@ if (isset($_GET['action']) && $_GET['action'] == 'view_client') {
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.5/datatables.min.js"></script>
     <script>
+
+      function updateQuote(var email){
+        
+
+      }
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
     //  demo.initDashboardPageCharts();
