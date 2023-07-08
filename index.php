@@ -403,7 +403,7 @@ $conn = OpenCon();
                 <div class="event-default">
                   <figure class="event-default-image"><img src="images/tour/dubai.jpg" alt="" width="570" height="370"/>
                   </figure>
-                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#tour_form" onClick="settour('Amsterdam', 'Dubai');">get a quote</a></div>
+                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#quote-form" onClick="settour('Amsterdam', 'Dubai');">get a quote</a></div>
                 </div>
                 <div class="event-default-inner">
                   <h5><a class="event-default-title" href="#">Amsterdam to Dubai</a></h5><span class="heading-5">from $1785</span>
@@ -415,7 +415,7 @@ $conn = OpenCon();
                 <div class="event-default">
                   <figure class="event-default-image"><img src="images/tour/london.jpg" alt="" width="570" height="370"/>
                   </figure>
-                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#tour_form" onClick="settour('Hongkong', 'London');">get a quote</a></div>
+                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#quote-form" onClick="settour('Hongkong', 'London');">get a quote</a></div>
                 </div>
                 <div class="event-default-inner">
                   <h5><a class="event-default-title" href="#">Hong Kong to London</a></h5><span class="heading-5">from $2290</span>
@@ -427,7 +427,7 @@ $conn = OpenCon();
                 <div class="event-default">
                   <figure class="event-default-image"><img src="images/tour/sydney.jpg" alt="" width="570" height="370"/>
                   </figure>
-                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#tour_form" onClick="settour('Bangkok', 'Sydney');">get a quote</a></div>
+                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#quote-form" onClick="settour('Bangkok', 'Sydney');">get a quote</a></div>
                 </div>
                 <div class="event-default-inner">
                   <h5><a class="event-default-title" href="#" >Bangkok to Sydney</a></h5><span class="heading-5">from $1198</span>
@@ -439,7 +439,7 @@ $conn = OpenCon();
                 <div class="event-default">
                   <figure class="event-default-image"><img src="images/tour/bangkok.jpg" alt="" width="570" height="370"/>
                   </figure>
-                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#tour_form" onClick="settour('Parish', 'Bangkok');">get a quote</a></div>
+                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#quote-form" onClick="settour('Parish', 'Bangkok');">get a quote</a></div>
                 </div>
                 <div class="event-default-inner">
                   <h5><a class="event-default-title" href="#" onClick="settour('Parish', 'Bangkok');">Parish to Bangkok</a></h5><span class="heading-5">from $1450</span>
@@ -451,7 +451,7 @@ $conn = OpenCon();
                 <div class="event-default">
                   <figure class="event-default-image"><img src="images/tour/los-angeles.jpg" alt="" width="570" height="370"/>
                   </figure>
-                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#tour_form" onClick="settour('London', 'Los Angeles');">get a quote</a></div>
+                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#quote-form" onClick="settour('London', 'Los Angeles');">get a quote</a></div>
                 </div>
                 <div class="event-default-inner">
                   <h5><a class="event-default-title" href="#">London to Los Angeles</a></h5><span class="heading-5">from $2290</span>
@@ -463,7 +463,7 @@ $conn = OpenCon();
                 <div class="event-default">
                   <figure class="event-default-image"><img src="images/tour/new-york.jpg" alt="" width="570" height="370"/>
                   </figure>
-                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#tour_form" onClick="settour('Dubai', 'New York');">get a quote</a></div>
+                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#quote-form" onClick="settour('Dubai', 'New York');">get a quote</a></div>
                 </div>
                 <div class="event-default-inner">
                   <h5><a class="event-default-title" href="#">Dubai to New York</a></h5><span class="heading-5">from $2490</span>
