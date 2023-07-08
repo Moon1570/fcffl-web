@@ -7,14 +7,13 @@ $conn = OpenCon();
 
 <!-- Page preloader-->
     <div class="page">
-      <section class="section" style="background-image:URL('images/flight1.gif');background-repeat: no-repeat;background-size: contain;background-attachment: fixed;">
+      <section class="section" style="background-image:URL('images/fly.gif');background-repeat: no-repeat;background-size: contain;background-attachment: fixed;">
       
       <div class="container container-bigger form-request-wrap" id="quote-form">
             <div class="row row-fix justify-content-sm-center justify-content-lg-end">
               <div class="col-lg-12 col-xxl-6">
-                <div class="form-request form-request-modern  novi-background" style="background-color:#f9ebce;">
+                <div class="form-request form-request-modern  novi-background" style="background-color:#4f7dd545;">
 
-                  <!-- RD Mailform-->
                   
 
                   <?php
@@ -583,7 +582,7 @@ $conn = OpenCon();
               </div>
               <div class="quote-boxed-main">
                 <div class="quote-boxed-text">
-                  <p> Wow. What a service. Last minute flight, to UK, in FIRST! I'll be back to book more tickets. Big thank you to FCFFL team, made everything so seamless and worked quickly to get the ticket booked (it was booked literally 5-6 hours before departure!). </p>
+                  <p> Wow. What a service. Last minute flight, to UK, in FIRST! I'll be back to book more tickets. Big thank you to FCFL team, made everything so seamless and worked quickly to get the ticket booked (it was booked literally 5-6 hours before departure!). </p>
                 </div>
                 <div class="quote-boxed-meta">
                   <p class="quote-boxed-cite">Ann McMillan</p>
@@ -596,7 +595,7 @@ $conn = OpenCon();
               </div>
               <div class="quote-boxed-main">
                 <div class="quote-boxed-text">
-                  <p> I used FCFFL to fly to Bangkok from NYC.  I secured a biz class seat on a premiere Airline for a very deep discount.  No issues at all.  The LFC I dealth with was extremely professional, responding very quickly to any questions I had.  I will be doing all my business with them in the future </p>
+                  <p> I used FCFL to fly to Bangkok from NYC.  I secured a biz class seat on a premiere Airline for a very deep discount.  No issues at all.  The LFC I dealth with was extremely professional, responding very quickly to any questions I had.  I will be doing all my business with them in the future </p>
                 </div>
                 <div class="quote-boxed-meta">
                   <p class="quote-boxed-cite">Debra Ortega</p>
@@ -609,7 +608,7 @@ $conn = OpenCon();
               </div>
               <div class="quote-boxed-main">
                 <div class="quote-boxed-text">
-                  <p> We have just returned to Australia from a 3 week trip to Ireland for a family wedding. Usually the flight is a nightmare except this time we decided to give the FCFFL a go. I have to say from the minute we arrived at the airport it was amazing. We bypassed all the queues and had access to the business and first class lounges in each airport. The flights were perfectly on time with absolutely no problems on either side checking in. All I can say is I will definitely be booking with FCFFL again. Business class all the way from now on. </p>
+                  <p> We have just returned to Australia from a 3 week trip to Ireland for a family wedding. Usually the flight is a nightmare except this time we decided to give the FCFL a go. I have to say from the minute we arrived at the airport it was amazing. We bypassed all the queues and had access to the business and first class lounges in each airport. The flights were perfectly on time with absolutely no problems on either side checking in. All I can say is I will definitely be booking with FCFL again. Business class all the way from now on. </p>
                 </div>
                 <div class="quote-boxed-meta">
                   <p class="quote-boxed-cite">Jason Drago</p>
