@@ -12,7 +12,7 @@ $conn = OpenCon();
       <div class="container container-bigger form-request-wrap" id="quote-form">
             <div class="row row-fix justify-content-sm-center justify-content-lg-end">
               <div class="col-lg-12 col-xxl-6">
-                <div class="form-request form-request-modern  novi-background" style="background-color:#4f7dd545;">
+                <div class="form-request form-request-modern  novi-background" style="background-color:#bbebffd6;">
 
                   
 
