@@ -1,0 +1,13 @@
+/* For Mobile */
+@media screen and (max-width: 540px) {
+    .img-size-auto {
+        background-size: contain;
+    }
+}
+
+/* For Tablets */
+@media screen and (min-width: 540px) and (max-width: 780px) {
+    .img-size-auto {
+        background-size: contain;
+    }
+}

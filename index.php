@@ -7,7 +7,7 @@ $conn = OpenCon();
 
 <!-- Page preloader-->
     <div class="page">
-      <section class="section" style="background-image:URL('images/fly.gif');background-repeat: no-repeat;background-size: contain;background-attachment: fixed;">
+      <section class="section img-size-auto" style="background-image:URL('images/fly.gif');background-repeat: no-repeat;background-attachment: fixed;">
       
       <div class="container container-bigger form-request-wrap" id="quote-form">
             <div class="row row-fix justify-content-sm-center justify-content-lg-end">
