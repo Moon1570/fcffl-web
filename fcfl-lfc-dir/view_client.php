@@ -14,12 +14,12 @@ if(!isset($_SESSION["lfc_id"])) {
 
 if (isset($_GET['action']) && $_GET['action'] == 'view_client') {
     $conn = OpenCon();
+    $cid = $_GET['cid'];
     $sql = "SELECT * FROM clients WHERE cid = ".$_GET['cid'];
     $result = mysqli_query($conn, $sql);
     $client = mysqli_fetch_assoc($result);
 
-    $email = $client["email"];
-    $sql = "SELECT * FROM quote_request WHERE email = '$email'";
+    $sql = "SELECT * FROM quote_request WHERE cid = '$cid'";
     $result = mysqli_query($conn, $sql);
 
     CloseCon($conn);
@@ -107,18 +107,14 @@ if (isset($_GET['action']) && $_GET['action'] == 'view_client') {
             <div class="card card-chart">
               <div class="card-header">
                 <h5 class="card-category">Quote</h5>
-                <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> Client Requests</h3>
+                <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i>Client Requests</h3>
               </div>
               <div class="card-body">
                 <table class="table table-hover" id="quote_request">
                 <thead>
                     <tr>
-                        <td>Type</td>
-                        <td>Dept. Airport</td>
-                        <td>Date</td>
-                        <td>Arr. Airport</td>
-                        <td>Date</td>
                         <td>Timestamp</td>
+                        <td>Type</td>
                         <td>Status</td>
                         <td>Action</td>
                     </tr>
@@ -178,29 +174,9 @@ if (isset($_GET['action']) && $_GET['action'] == 'view_client') {
                             echo '  
                             <tbody>
                             <tr>  
-                                <td>'.$type.'</td>  
-                                <td>'.$row["departure_airport"].'</td>  
-                                <td>'.$row["departure_date"].'</td>  
-                                <td>'.$row["arrival_airport"].'</td>  
-                                <td>'.$row["arrival_date"].'</td>  
                                 <td>'.$row["timestamp"].'</td>  
-                                <td>
-                                <select class="form-select form-select-sm">
-                                  <option value="'.$row["status"].'" selected>'.$status.'</option>
-                                  <option value="0">Fresh</option>
-                                  <option value="1">Processing</option>
-                                  <option value="2">No flight found</option>
-                                  <option value="3">Missed Call</option>
-                                  <option value="4">Will get back later</option>
-                                  <option value="5">Quote send</option>
-                                  <option value="6">Asking for lower price</option>
-                                  <option value="7">Sold</option>
-                                  <option value="8">Reject</option>
-                                  <option value="9">Found cheaper elsewhere</option>
-                                  <option value="10">Scam</option>
-                                  <option value="11">Unwilling to share CC</option>
-                                </select>
-                                </td>
+                                <td>'.$type.'</td>  
+                                <td>'.$status.'</td>
                                 <td><a href="./view_quote.php?quote_id='.$row["id"].'" class="btn btn-warning btn-sm">View</a></td>
                             </tr>  </tbody>
                             ';  
@@ -235,4 +211,12 @@ if (isset($_GET['action']) && $_GET['action'] == 'view_client') {
     //  demo.initDashboardPageCharts();
 
     });
+  </script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.5/datatables.min.js"></script>
+  <script>
+    $(document).ready(function(){  
+            $('#quote_request').DataTable();  
+        }); 
   </script>

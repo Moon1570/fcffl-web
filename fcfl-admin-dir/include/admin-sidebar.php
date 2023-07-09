@@ -9,6 +9,7 @@
     $clients = "";
     $typography = "";
     $lfc = "";
+
     if ($url == "/fcffl-web/fcfl-admin-dir/dashboard.php") {
         $dashboard = "active";
     } 

@@ -14,9 +14,13 @@ if(!isset($_SESSION["lfc_id"])) {
 <?php  
           $conn = OpenCon();
           $lfc_id = $_SESSION["lfc_id"];
+
+          $quote_id = $_GET['quote_id'];
+
          // $sql = "SELECT * FROM clients";
-          $sql = "SELECT * FROM clients c WHERE c.lfc_id = $lfc_id";
+          $sql = "SELECT * FROM quote_request WHERE id = '$quote_id'";
           $result = mysqli_query($conn, $sql);
+          $quote = mysqli_fetch_assoc($result);
           CloseCon($conn);
     ?>  
 
@@ -32,17 +36,82 @@ if(!isset($_SESSION["lfc_id"])) {
       <!-- End Navbar -->
       <div class="content">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-8">
             <div class="card ">
               <div class="card-header">
                 <h4 class="card-title"> Quote Details</h4>
               </div>
               <div class="card-body">
-                <div class="table-responsive">
-                    <table>
+                <div class="table-responsive" >
+                    <table class="table">
                         <tr>
-                            <th></th>
+                            <th>Time</th>
+                            <td><?php echo $quote["timestamp"]; ?></td>
                         </tr>
+                        <tr>
+                            <th>Type</th>
+                            <td>
+                              <?php 
+                              if($quote["type"]==0){
+                                echo "One Way";
+                              } else if($quote["type"]==1){
+                                echo "Return";
+                              } else if($quote["type"]==2){
+                                echo "Multi-city";
+                              }
+                              ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Departure Airport</th>
+                            <td><?php echo $quote["departure_airport"]; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Departure Date</th>
+                            <td><?php echo $quote["departure_date"]; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Arrival Airport</th>
+                            <td><?php echo $quote["arrival_airport"]; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Arrival Date</th>
+                            <td><?php echo $quote["arrival_date"]; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Passengers</th>
+                            <td><?php echo $quote["pax"]; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Flexibility</th>
+                            <td><?php echo $quote["flexibility"]; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Notes</th>
+                            <td><?php echo $quote["note"]; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Quote Status</th>
+                            <td>
+                              <?php 
+                              if($quote["status"]==0){
+                                echo "Pending";
+                              } else if($quote["status"]==1){
+                                echo "Accepted";
+                              } else if($quote["status"]==2){
+                                echo "Rejected";
+                              }
+                              ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                              <a href="#" class="btn btn-warning">Update</a>
+                            </td>
+                        </tr>
+
+
+
                     </table>
                 </div>
               </div>

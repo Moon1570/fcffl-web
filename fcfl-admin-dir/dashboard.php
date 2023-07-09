@@ -17,8 +17,9 @@ if(!isset($_SESSION["aid"])) {
           $conn = OpenCon();
           $sql = "SELECT * FROM lfc";
           $result = mysqli_query($conn, $sql);
-          $sqll = "SELECT * FROM quote_request";
-          $resultt = mysqli_query($conn, $sqll);
+          $sql = "SELECT q.departure_airport, q.departure_date, q.arrival_airport, q.arrival_date, q.flexibility, q.note, q.pax, q.status, q.type, q.timestamp, c.first_name, c.last_name, c.email, c.phone  FROM quote_request as q
+          JOIN clients as c ON q.cid=c.cid";
+          $quote_requests = mysqli_query($conn, $sql);
           CloseCon($conn);
 ?>
 
@@ -274,7 +275,7 @@ if(!isset($_SESSION["aid"])) {
           <div class="col-lg-12 col-md-12">
             <div class="card ">
               <div class="card-header">
-                <h4 class="card-title"> Simple Table</h4>
+                <h4 class="card-title"> Quote Table</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -316,11 +317,11 @@ if(!isset($_SESSION["aid"])) {
                     <tbody>
                       <tr>
                         <?php
-                        while($rows = mysqli_fetch_array($resultt))
+                        while($rows = mysqli_fetch_array($quote_requests))
                         {
                           echo "<tr>";
                           echo "<td>" . $rows['first_name'] ." ".$rows['last_name']. "</td>";
-                          echo "<td>" . $rows['email'] . "</td>";
+                          echo " <td>" . $rows['email'] . "</td>";
                           echo "<td>" . $rows['phone'] . "</td>";
                           echo "<td>" . $rows['departure_airport'] . "</td>";
                           echo "<td>" . $rows['arrival_airport'] . "</td>";
@@ -333,7 +334,7 @@ if(!isset($_SESSION["aid"])) {
                           }else if($rows['type'] == 2){
                             echo "<td> Multi City </td>";
                           }
-                          echo '<td><textarea style="background-color:white;" disabled>' . $rows['note'] . '</textarea></td>';
+                          echo '<td><p>' . $rows['note'] . '</p></td>';
                           $datetime_1 = $rows['timestamp'];  
                           $datetime_2 = date("Y-m-d H:i:s");
                           $start_datetime = new DateTime($datetime_1); 
