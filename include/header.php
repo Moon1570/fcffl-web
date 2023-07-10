@@ -6,17 +6,26 @@
 <html class="wide wow-animation" lang="en"> 
   <head>
     <!-- Site Title-->
-    <title>Home</title>
+    <title>FCFL - First Class Flight for Less</title>
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <meta name="description" content="Get upto 70% discount of first and business class flights">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="FCFL - First Class Flight for Less">
+    <meta property="og:description" content="Get upto 70% discount of first and business class flights">
+    <meta property="og:url" content="https://firstclassflightforless.com/">
+    <meta property="og:site_name" content="FCFL - First Class Flight for Less">
+    <meta property="og:image" content="https://firstclassflightforless.com/images/logo/fcfl.png">
+    <link rel="icon" href="images/logo/fcfl.ico" type="image/x-icon">
     <!-- Stylesheets -->
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Oswald:200,400%7CLato:300,400,300italic,700%7CMontserrat:900">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/custom.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	  <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.css">
@@ -129,7 +138,7 @@
                   <li class="box-inline list-inline-item"><span class="icon novi-icon icon-md-smaller icon-secondary mdi mdi-email"></span><a href="mailto:jason@firstclassflightforless.com">jason@firstclassflightforless.com</a></li>
                   <li class="box-inline list-inline-item"><span class="icon novi-icon icon-md-smaller icon-secondary mdi mdi-phone"></span>
                     <ul class="list-comma">
-                      <li><a href="tel:+447488818564">+44-7488-818564</a></li>
+                      <li><a href="tel:+1(315)820-2008">+1 (315) 820-2008</a></li>
                     </ul>
                   </li>
                   
@@ -140,7 +149,7 @@
             <div class="rd-navbar-inner">
               <div class="rd-navbar-panel">
                 <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
-                <div class="rd-navbar-brand"><a class="brand-name" href="index.php"><img class="logo-default" src="images/logo/bg-First-Class-Flight-For-Less-logo-black-350-1.png" alt="" width="208" height="46"/><img class="logo-inverse" src="images/logo-inverse-208x46.png" alt="" width="208" height="46"/></a></div>
+                <div class="rd-navbar-brand"><a class="brand-name" href="index.php"><img class="logo-default" src="images/logo/fcfl.png" alt="" width="175" /><img class="logo-inverse" src="images/logo/fcfl.png" alt="" width="175" /></a></div>
               </div>
               <div class="rd-navbar-aside-center">
                 <div class="rd-navbar-nav-wrap">

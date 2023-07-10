@@ -14,12 +14,12 @@ if(!isset($_SESSION["lfc_id"])) {
 
 if (isset($_GET['action']) && $_GET['action'] == 'view_client') {
     $conn = OpenCon();
+    $cid = $_GET['cid'];
     $sql = "SELECT * FROM clients WHERE cid = ".$_GET['cid'];
     $result = mysqli_query($conn, $sql);
     $client = mysqli_fetch_assoc($result);
 
-    $email = $client["email"];
-    $sql = "SELECT * FROM quote_request WHERE email = '$email'";
+    $sql = "SELECT * FROM quote_request WHERE cid = '$cid'";
     $result = mysqli_query($conn, $sql);
 
     CloseCon($conn);
@@ -107,20 +107,19 @@ if (isset($_GET['action']) && $_GET['action'] == 'view_client') {
             <div class="card card-chart">
               <div class="card-header">
                 <h5 class="card-category">Quote</h5>
-                <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> Client Requests</h3>
+                <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i>Client Requests</h3>
               </div>
               <div class="card-body">
-                <table class="table table-bordered" id="quote_request">
+                <table class="table table-hover" id="quote_request">
+                <thead>
                     <tr>
-                        <td>Type</td>
-                        <td>Dept. Airport</td>
-                        <td>Date</td>
-                        <td>Arr. Airport</td>
-                        <td>Date</td>
-                        <td>Passengers</td>
-                        <td>Note</td>
                         <td>Timestamp</td>
+                        <td>Type</td>
+                        <td>Status</td>
+                        <td>Action</td>
                     </tr>
+                    </thead>
+                    
 
                     <?php
                         while($row = mysqli_fetch_array($result))  
@@ -132,17 +131,54 @@ if (isset($_GET['action']) && $_GET['action'] == 'view_client') {
                           } else if ($row["type"] == "2") {
                             $type = "Multi-Leg";
                           }
+
+            
+                          $status = "";
+                          if ($row["status"] == "0") {
+                            $status = "Fresh";
+                          }
+                          else if ($row["status"] == "1") {
+                            $status = "Processing";
+                          }
+                          else if ($row["status"] == "2") {
+                            $status = "No flight found";
+                          }
+                          else if ($row["status"] == "3") {
+                            $status = "Missed Call";
+                          }
+                          else if ($row["status"] == "4") {
+                            $status = "Will get back later";
+                          }
+                          else if ($row["status"] == "5") {
+                            $status = "Quote send";
+                          }
+                          else if ($row["status"] == "6") {
+                            $status = "Asking for lower price";
+                          }
+                          else if ($row["status"] == "7") {
+                            $status = "Sold";
+                          }
+                          else if ($row["status"] == "8") {
+                            $status = "Reject";
+                          }
+                          else if ($row["status"] == "9") {
+                            $status = "Found cheaper elsewhere";
+                          }
+                          else if ($row["status"] == "10") {
+                            $status = "Scam";
+                          }
+                          else if ($row["status"] == "11") {
+                            $status = "Unwilling to share CC";
+                          }
+
                             echo '  
+                            <tbody>
                             <tr>  
-                                <td>'.$type.'</td>  
-                                <td>'.$row["departure_airport"].'</td>  
-                                <td>'.$row["departure_date"].'</td>  
-                                <td>'.$row["arrival_airport"].'</td>  
-                                <td>'.$row["arrival_date"].'</td>  
-                                <td>'.$row["pax"].'</td>  
-                                <td>'.$row["note"].'</td>  
                                 <td>'.$row["timestamp"].'</td>  
-                            </tr>  
+                                <td>'.$type.'</td>  
+                                <td>'.$status.'</td>
+                                <td><a href="./view_quote.php?quote_id='.$row["id"].'" class="btn btn-warning btn-sm">View</a></td>
+                            </tr>  </tbody>
                             ';  
                         }
                     ?>
@@ -165,9 +201,22 @@ if (isset($_GET['action']) && $_GET['action'] == 'view_client') {
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.5/datatables.min.js"></script>
     <script>
+
+      function updateQuote(var email){
+        
+
+      }
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
     //  demo.initDashboardPageCharts();
 
     });
+  </script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.5/datatables.min.js"></script>
+  <script>
+    $(document).ready(function(){  
+            $('#quote_request').DataTable();  
+        }); 
   </script>

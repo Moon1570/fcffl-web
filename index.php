@@ -7,19 +7,17 @@ $conn = OpenCon();
 
 <!-- Page preloader-->
     <div class="page">
-      <section class="section" style="background-image:URL('images/flight1.gif');background-repeat: no-repeat;background-size: contain;background-attachment: fixed;">
+      <section class="section img-size-auto" style="background-image:URL('images/fly.gif');background-repeat: no-repeat;background-attachment: fixed;">
       
       <div class="container container-bigger form-request-wrap" id="quote-form">
             <div class="row row-fix justify-content-sm-center justify-content-lg-end">
               <div class="col-lg-12 col-xxl-6">
-                <div class="form-request form-request-modern  novi-background" style="background-color:#f9ebce;">
+                <div class="form-request form-request-modern  novi-background" style="background-color:#bbebffd6;">
 
-                  <!-- RD Mailform-->
                   
 
                   <?php
 
-                    $secretKey = "6Lc_WEQmAAAAABeRxx76nGkFra6n1xsGQaOq12BZ";
                     $postData = $valErr = $message = ''; 
                     $status = 'error'; 
  
@@ -37,9 +35,28 @@ $conn = OpenCon();
                         $lname = $_POST["lname"];
                         $email = $_POST["email"];
                         $phone = $_POST["phone"];
+                        echo $phone;
                         $pax = $_POST["pax"];
                         $flexibility = $_POST["flexibility"];
                         $note = $_POST["note"];
+                        //todays date
+                        $date = date("Y-m-d");
+
+
+                        if(!empty($$departure_date)){
+                          if($date > $departure_date){
+                            $valErr .= "Departure date must be greater than today's date <br>";
+                          }
+                        }
+                        if(empty($arrival_date)){}
+                        else{
+                          if($departure_date > $arrival_date){
+                            $valErr .= "Arrival date must be greater than departure date <br>";
+                          }
+                          if($date > $arrival_date){
+                            $valErr .= "Arrival date must be greater than today's date <br>";
+                          }
+                        }
 
 
                         if (empty($fname)){
@@ -58,7 +75,7 @@ $conn = OpenCon();
 
                         if(empty($valErr)){
 
-                          $to = "minhaj@stealthai.net, moon.cse4.bu@gmail.com, tanzil@fortmedia.net";
+                          $to = "minhaj@stealthai.net, moon.cse4.bu@gmail.com, jason@firstclassflightforless.com";
                                   $subject = "New Lead from FCFL";
         
                                   $mail = "
@@ -130,65 +147,53 @@ $conn = OpenCon();
                                   $headers .= 'From: <reception@firstclassflightforless.com>' . "\r\n";
                                   $headers .= 'Cc: tanzilrimu@gmail.com ' . "\r\n";
         
-                                  mail($to,$subject,$mail,$headers);
-        
-                                  $message = "Request has been sent! Our team will contact you soon!";
-                                  $status = 'success';  
-                                  $postData = '';  
+                                mail($to,$subject,$mail,$headers);
 
 
-                            if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])){  
-    
-                              // Google reCAPTCHA verification API Request  
-                              $api_url = 'https://www.google.com/recaptcha/api/siteverify';  
-                              $resq_data = array(  
-                                  'secret' => $secretKey,  
-                                  'response' => $_POST['g-recaptcha-response'],  
-                                  'remoteip' => $_SERVER['REMOTE_ADDR']  
-                              );  
-                    
-                              $curlConfig = array(  
-                                  CURLOPT_URL => $api_url,  
-                                  CURLOPT_POST => true,  
-                                  CURLOPT_RETURNTRANSFER => true,  
-                                  CURLOPT_POSTFIELDS => $resq_data  
-                              );  
-                    
-                              $ch = curl_init();  
-                              curl_setopt_array($ch, $curlConfig);  
-                              $response = curl_exec($ch);  
-                              curl_close($ch);  
-                    
-                              // Decode JSON data of API response in array  
-                              $responseData = json_decode($response);  
-                    
-                              // If the reCAPTCHA API response is valid  
-                              if($responseData->success){ 
-                                $message .= 'Captcha verified successfully.';
-                                
-                                if($conn === false){
-                                  die("ERROR: Could not connect. "
-                                      . mysqli_connect_error());
-                                }
-                              
-        
-                                $sqlquery = "INSERT INTO `quote_request` (`id`, `fname`, `lname`, `email`, `phone`, `departure_airport`, `departure_date`, `arrival_airport`, `arrival_date`, `pax`, `type`, `flexibility`, `note`, `timestamp`) 
-                                VALUES (NULL, '$fname', '$lname', '$email', '$phone', '$departure_airport', '$departure_date', '$arrival_airport', '$arrival_date', '$pax', '$type', '$flexibility', '$note', current_timestamp())";
-                                
-        
-                                if ($conn->query($sqlquery) === TRUE) {
-                                   $message="Our team will contact you shortly. Please check your email and spam folder.";
+
+                                //Check if the email already exists
+                                $sql = "SELECT c.cid, c.first_name, c.last_name, c.phone, c.email, c.lfc_id, l.first_name as lfc_fname
+                                FROM clients as c
+                                JOIN lfc as l ON c.lfc_id = l.lfc_id
+                                WHERE c.email = '$email'";
+                                $result = mysqli_query($conn, $sql);
+                                if (mysqli_num_rows($result) > 0) {
+                                  // Client already exists
+                                  //Get the client id
+                                  $row = mysqli_fetch_assoc($result);
+                                  $cid = $row["cid"];
+                                  $lfc_name = $row["lfc_fname"];
+                                  $lfc_id = $row["lfc_id"];
+
+                                  $postData = '';      
+
+                                  //Insert into quote_request table
+                                  $sql = "INSERT INTO quote_request (id, cid, type, departure_airport, departure_date, arrival_airport, arrival_date, pax, flexibility, note, status)
+                                  VALUES (NULL, '$cid', '$type', '$departure_airport', '$departure_date', '$arrival_airport', '$arrival_date', '$pax', '$flexibility', '$note', '0')";
+                                  if (mysqli_query($conn, $sql)) {
+                                    $message .= "Welcome back, $fname! $lfc_name will contact you soon <br>"; 
+                                  } else {
+                                    $message .= "Error: " . $sql . "<br>" . mysqli_error($conn);
+                                  }
                                 } else {
-                                  echo "ERROR: Hush! Sorry $sqlquery. ". mysqli_error($conn);
-                                }
-                                    
-    
-                              }else{  
-                                  $message .= 'The reCAPTCHA verification.';  
-                              }  
-                          }else{  
-                              $message = 'Something went wrong, please try again.';  
-                          }  
+                                  // Client does not exist
+                                  //Insert into clients table
+                                  $sql = "INSERT INTO clients (cid, first_name, last_name, phone, email, lfc_id)
+                                  VALUES (NULL, '$fname', '$lname', '$phone', '$email', '1')";
+                                  if (mysqli_query($conn, $sql)) {
+                                    $cid = mysqli_insert_id($conn);
+                                    //Insert into quote_request table
+                                    $sql = "INSERT INTO quote_request (id, cid, type, departure_airport, departure_date, arrival_airport, arrival_date, pax, flexibility, note, status)
+                                    VALUES (NULL, '$cid', '$type', '$departure_airport', '$departure_date', '$arrival_airport', '$arrival_date', '$pax', '$flexibility', '$note', '0')";
+                                    if (mysqli_query($conn, $sql)) {
+                                      $message .= "Thanks, $fname! One of or LFC will contact you soon <br>"; 
+                                    } else {
+                                      $message .= "Error: " . $sql . "<br>" . mysqli_error($conn);
+                                    }
+                                  } else {
+                                    $message .= "Error: " . $sql . "<br>" . mysqli_error($conn);
+                                  }
+                                }                            
 
                         } else{
                           $message = $valErr;
@@ -204,8 +209,18 @@ $conn = OpenCon();
                         ?>
 
 
-                  <form style="margin-top: 0%; z-index:3;" class="index.php" action="" method="post" id="quoteForm" name="quoteForm" >
+                  <form style="margin-top: 0%; z-index:3;"  action="" method="post" id="quoteForm" name="quoteForm" >
                     <div class="row row-20 row-fix">
+                      <?php if($valErr != ''){ ?>
+                          <div class="alert alert-danger" role="alert">
+                            <?php echo $valErr; ?>
+                          </div>
+                      <?php } ?>
+                      <?php if($message != ''){ ?>
+                          <div class="alert alert-warning" role="alert">
+                            <?php echo $message; ?>
+                          </div>
+                      <?php } ?>
                     <div class="col-sm-12" >
                         <label class="form-label-outside">Trip Type</label>
                         <div class="form-wrap form-wrap-validation" style="margin-left:10%">
@@ -388,7 +403,7 @@ $conn = OpenCon();
                 <div class="event-default">
                   <figure class="event-default-image"><img src="images/tour/dubai.jpg" alt="" width="570" height="370"/>
                   </figure>
-                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#tour_form" onClick="settour('Amsterdam', 'Dubai');">get a quote</a></div>
+                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#quote-form" onClick="settour('Amsterdam', 'Dubai');">get a quote</a></div>
                 </div>
                 <div class="event-default-inner">
                   <h5><a class="event-default-title" href="#">Amsterdam to Dubai</a></h5><span class="heading-5">from $1785</span>
@@ -400,7 +415,7 @@ $conn = OpenCon();
                 <div class="event-default">
                   <figure class="event-default-image"><img src="images/tour/london.jpg" alt="" width="570" height="370"/>
                   </figure>
-                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#tour_form" onClick="settour('Hongkong', 'London');">get a quote</a></div>
+                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#quote-form" onClick="settour('Hongkong', 'London');">get a quote</a></div>
                 </div>
                 <div class="event-default-inner">
                   <h5><a class="event-default-title" href="#">Hong Kong to London</a></h5><span class="heading-5">from $2290</span>
@@ -412,7 +427,7 @@ $conn = OpenCon();
                 <div class="event-default">
                   <figure class="event-default-image"><img src="images/tour/sydney.jpg" alt="" width="570" height="370"/>
                   </figure>
-                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#tour_form" onClick="settour('Bangkok', 'Sydney');">get a quote</a></div>
+                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#quote-form" onClick="settour('Bangkok', 'Sydney');">get a quote</a></div>
                 </div>
                 <div class="event-default-inner">
                   <h5><a class="event-default-title" href="#" >Bangkok to Sydney</a></h5><span class="heading-5">from $1198</span>
@@ -424,7 +439,7 @@ $conn = OpenCon();
                 <div class="event-default">
                   <figure class="event-default-image"><img src="images/tour/bangkok.jpg" alt="" width="570" height="370"/>
                   </figure>
-                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#tour_form" onClick="settour('Parish', 'Bangkok');">get a quote</a></div>
+                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#quote-form" onClick="settour('Parish', 'Bangkok');">get a quote</a></div>
                 </div>
                 <div class="event-default-inner">
                   <h5><a class="event-default-title" href="#" onClick="settour('Parish', 'Bangkok');">Parish to Bangkok</a></h5><span class="heading-5">from $1450</span>
@@ -436,7 +451,7 @@ $conn = OpenCon();
                 <div class="event-default">
                   <figure class="event-default-image"><img src="images/tour/los-angeles.jpg" alt="" width="570" height="370"/>
                   </figure>
-                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#tour_form" onClick="settour('London', 'Los Angeles');">get a quote</a></div>
+                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#quote-form" onClick="settour('London', 'Los Angeles');">get a quote</a></div>
                 </div>
                 <div class="event-default-inner">
                   <h5><a class="event-default-title" href="#">London to Los Angeles</a></h5><span class="heading-5">from $2290</span>
@@ -448,7 +463,7 @@ $conn = OpenCon();
                 <div class="event-default">
                   <figure class="event-default-image"><img src="images/tour/new-york.jpg" alt="" width="570" height="370"/>
                   </figure>
-                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#tour_form" onClick="settour('Dubai', 'New York');">get a quote</a></div>
+                  <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#quote-form" onClick="settour('Dubai', 'New York');">get a quote</a></div>
                 </div>
                 <div class="event-default-inner">
                   <h5><a class="event-default-title" href="#">Dubai to New York</a></h5><span class="heading-5">from $2490</span>
@@ -583,7 +598,7 @@ $conn = OpenCon();
               </div>
               <div class="quote-boxed-main">
                 <div class="quote-boxed-text">
-                  <p> Wow. What a service. Last minute flight, to UK, in FIRST! I'll be back to book more tickets. Big thank you to FCFFL team, made everything so seamless and worked quickly to get the ticket booked (it was booked literally 5-6 hours before departure!). </p>
+                  <p> Wow. What a service. Last minute flight, to UK, in FIRST! I'll be back to book more tickets. Big thank you to FCFL team, made everything so seamless and worked quickly to get the ticket booked (it was booked literally 5-6 hours before departure!). </p>
                 </div>
                 <div class="quote-boxed-meta">
                   <p class="quote-boxed-cite">Ann McMillan</p>
@@ -596,7 +611,7 @@ $conn = OpenCon();
               </div>
               <div class="quote-boxed-main">
                 <div class="quote-boxed-text">
-                  <p> I used FCFFL to fly to Bangkok from NYC.  I secured a biz class seat on a premiere Airline for a very deep discount.  No issues at all.  The LFC I dealth with was extremely professional, responding very quickly to any questions I had.  I will be doing all my business with them in the future </p>
+                  <p> I used FCFL to fly to Bangkok from NYC.  I secured a biz class seat on a premiere Airline for a very deep discount.  No issues at all.  The LFC I dealth with was extremely professional, responding very quickly to any questions I had.  I will be doing all my business with them in the future </p>
                 </div>
                 <div class="quote-boxed-meta">
                   <p class="quote-boxed-cite">Debra Ortega</p>
@@ -609,7 +624,7 @@ $conn = OpenCon();
               </div>
               <div class="quote-boxed-main">
                 <div class="quote-boxed-text">
-                  <p> We have just returned to Australia from a 3 week trip to Ireland for a family wedding. Usually the flight is a nightmare except this time we decided to give the FCFFL a go. I have to say from the minute we arrived at the airport it was amazing. We bypassed all the queues and had access to the business and first class lounges in each airport. The flights were perfectly on time with absolutely no problems on either side checking in. All I can say is I will definitely be booking with FCFFL again. Business class all the way from now on. </p>
+                  <p> We have just returned to Australia from a 3 week trip to Ireland for a family wedding. Usually the flight is a nightmare except this time we decided to give the FCFL a go. I have to say from the minute we arrived at the airport it was amazing. We bypassed all the queues and had access to the business and first class lounges in each airport. The flights were perfectly on time with absolutely no problems on either side checking in. All I can say is I will definitely be booking with FCFL again. Business class all the way from now on. </p>
                 </div>
                 <div class="quote-boxed-meta">
                   <p class="quote-boxed-cite">Jason Drago</p>
@@ -765,17 +780,15 @@ function onSubmit(token) {
   }
   else{
     document.getElementById("phone").value = iti.getNumber();
+    document.quoteForm.submit();
+
   }
   // add the country code to the number
-  var text = iti.getSelectedCountryData().dialCode + input.value;
+  //var text = iti.getSelectedCountryData().dialCode + input.value;
 
   // set the number with the country code in the input field
-  console.log("reached");
+ // document.getElementById(  "phone").value = text;
 
-  document.getElementById("phone").value = text;
-  console.log(text);
-
-    document.quoteForm.submit();
 }
   
 function number(){
