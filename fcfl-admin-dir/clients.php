@@ -35,6 +35,23 @@ if(!isset($_SESSION["aid"])) {
             <div class="card ">
               <div class="card-header">
                 <h4 class="card-title"> Clients Table</h4>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#changeLFC">
+                  Change LFC for Clients 
+                </button>
+                <?php
+
+                if(isset($_SESSION["message"])){
+                ?>
+                <div class="alert alert-success">
+                        <?php
+                            echo $_SESSION["message"];
+                            unset($_SESSION["message"]);
+                        ?>
+                                    
+                </div>
+                <?php
+                }
+            ?>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -80,6 +97,56 @@ if(!isset($_SESSION["aid"])) {
           </div>
         </div>
       </div>
+
+      <div class="modal fade" id="changeLFC" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change LFC</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="form" action="" method="post">
+                    <input type="hidden" name="type" value="add">
+
+                    <table  class="table">
+
+                        <tr >
+                            <td><p style="color: black;">Client's Email</p></td>
+                            <td><input type="text" style="color: black;" class="form-control" list="datalistOptions" name="cemail" placeholder="LFC Name">
+                    <datalist id="datalistOptions">
+                      <?php
+                      while($row = mysqli_fetch_array($result)) {
+                        echo "<option value='".trim($row['email'])."'>";
+                      }
+                      ?>
+                    </datalist></td>
+                        </tr>
+
+                        <tr>
+                            <td><p style="color: black;">LFC Name</p></td>
+                            <td><input type="text" style="color: black;" class="form-control" list="datalistOptions1" name="lfc" placeholder="LFC Name">
+                    <datalist id="datalistOptions1">
+                      <?php
+                      while($row = mysqli_fetch_array($result)) {
+                        echo "<option value='".trim($row['lfname'])." ".trim($row['llname']).">";
+                      }
+                      ?>
+                    </datalist></td>
+                        </tr>
+                    </table>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <input type="submit" class="btn btn-success" value="Save changes">
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+
+
      <?php
         include 'include/admin-footer.php'; 
      ?>

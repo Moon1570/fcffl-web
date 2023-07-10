@@ -271,7 +271,7 @@ if(!isset($_SESSION["aid"])) {
               </div>
             </div>
           </div> -->
-          <div class="col-lg-12 col-md-12">
+          <div class="col-lg-12 col-md-12 d-flex align-items-stretch">
             <div class="card ">
               <div class="card-header">
                 <h4 class="card-title"> Simple Table</h4>
@@ -349,7 +349,7 @@ if(!isset($_SESSION["aid"])) {
               </div>
             </div>
           </div>
-          <div class="col-lg-6 col-md-12" id="LFC">
+          <div class="col-lg-6 col-md-12 d-flex align-items-stretch" id="LFC">
             <div class="card ">
               <div class="card-header">
                 <h4 class="card-title"> Add LFC to Clients</h4>
@@ -376,8 +376,158 @@ if(!isset($_SESSION["aid"])) {
               </div>
             </div>
           </div>
+          <div class="col-lg-6 col-md-12 d-flex align-items-stretch" id="clients">
+            <div class="card ">
+              <div class="card-header">
+                <h4 class="card-title"> Add Clients</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <form action="add_Clients.php" method="post">
+                    <label for="AddClients" class="form-label">First Name</label>
+                    <input type="text" class="form-control" name="first_name" placeholder="first name" required>
+                    <label for="AddClients" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" name="last_name" placeholder="last name" required>
+                    <label for="AddClients" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" placeholder="Email" required>
+                    <label for="AddClients" class="form-label">Contact Number</label>
+                    <input type="text" class="form-control" name="phone1" placeholder="Phone Number">
+                    <label for="AddClients" class="form-label">Secondary Contact Number</label>
+                    <input type="text" class="form-control" name="phone2" placeholder="Phone Number">
+                    <label for="AddClients" class="form-label">LFC Name</label><br>
+                    <input type="text" class="form-control" list="datalistOptions" name="lfc" placeholder="LFC Name">
+                    <datalist id="datalistOptions">
+                      <?php
+                      while($row = mysqli_fetch_array($result)) {
+                        echo "<option value='".trim($row['first_name'])." ".trim($row['last_name'])."'>";
+                      }
+                      ?>
+                    </datalist>
+                    <input type="submit" class="btn btn-primary" name="submit" value="Submit">
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 row-lg-6 col-md-12 d-flex align-items-stretch" id="QR">
+            <div class="card ">
+              <div class="card-header">
+                <h4 class="card-title"> Add Quote Request</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <form action="add_quote.php" method="post">
+                    <label for="AddQuotes" class="form-label">First Name</label>
+                    <input type="text" class="form-control" name="first_name" placeholder="first name" required>
+                    <label for="AddQuotes" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" name="last_name" placeholder="last name" required>
+                    <label for="AddQuotes" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" placeholder="Email" required>
+                    <label for="AddQuotes" class="form-label">Contact Number</label>
+                    <input type="text" class="form-control" name="phone1" placeholder="Phone Number">
+                    <label for="AddQuotes" class="form-label">Departure Airport</label>
+                    <input type="text" id="dept_air" name="arrival_airport" class="autocomplete form-control" placeholder="City name or airport code" />                    
+                    <label for="AddQuotes" class="form-label">Departure Date</label>
+                    <input placeholder="Departure Date" name="departure_date" class="form-control" type="text" min="<?php echo date("Y-m-d"); ?>" onfocus="(this.type='date')" id="departure_date" />
+                    <label for="AddQuotes" class="form-label">Arrival Airport</label>
+                    <input type="text" id="arrv_air" name="arrival_airport" class="autocomplete form-control" placeholder="City name or airport code" />
+                    <label for="AddQuotes" class="form-label">Arrival Date</label>
+                    <input placeholder="Arrival Date (Optional)" name="arrival_date" class="form-control" type="text" min="<?php echo date("Y-m-d"); ?>" onfocus="(this.type='date')" id="arrival_date"/>
+                    <label for="AddQuotes" class="form-label">PAX</label>
+                    <input type="number" class="form-control" name="pax">
+                    <label for="AddQuotes" class="form-label">Type</label>
+                    <input type="number" class="form-control" name="type">
+                    <label for="AddQuotes" class="form-label">Notes</label><br>
+                    <textarea class="form-control" name="note"></textarea>
+                    <input type="submit" class="btn btn-primary" name="submit" value="Submit">
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <?php
         include 'include/admin-footer.php'; 
      ?>
+
+
+
+     <script src="../js/air-port-codes-api-min.js"></script>
+     
+<script>
+$(function() {
+    $( '.autocomplete' ).each(function () {
+        var apca = new apc('autocomplete', {
+            key : 'fa3f138fb7', 
+            secret : 'a2a3e99d878ac73 ', // Your API Secret Key: use this if you are not connecting from a web server
+            limit : 7
+        });
+ 
+        var dataObj = {
+            source: function( request, response ) {
+                // make the request
+                apca.request( request.term );
+ 
+                // this builds each line of the autocomplete
+                itemObj = function (airport, isChild) {
+                    var label;
+                    if (isChild) { // format children labels
+                        label = '&rdsh;' + airport.iata + ' - ' + airport.name;
+                    } else { // format labels
+                        label = airport.city;
+                        if (airport.state.abbr) {
+                            label += ', ' + airport.state.abbr;
+                        }
+                        label += ', ' + airport.country.name;                            
+                        label += ' (' + airport.iata + ' - ' + airport.name + ')';
+                    }
+                    return {
+                        label: label,
+                        value: airport.iata + ' - ' + airport.name,
+                        code: airport.iata
+                    };
+                };
+ 
+                // this deals with the successful response data
+                apca.onSuccess = function (data) {
+                    var listAry = [],
+                        thisAirport;
+                    if (data.status) { // success
+                        for (var i = 0, len = data.airports.length; i < len; i++) {
+                            thisAirport = data.airports[i];
+                            listAry.push(itemObj(thisAirport));
+                            if (thisAirport.children) {
+                                for (var j = 0, jLen = thisAirport.children.length; j < jLen; j++) {
+                                    listAry.push(itemObj(thisAirport.children[j], true));
+                                }
+                            }
+                        }
+                        response(listAry);
+                    } else { // no results
+                        response();
+                    }
+                };
+                apca.onError = function (data) {
+                    response();
+                    console.log(data.message);
+                };
+            },
+            select: function( event, ui ) {
+                // do something for click event
+                console.log(ui.item.code);
+            }
+        }
+ 
+        // this is necessary to allow html entities to display properly in the jqueryUI labels
+        $(this).autocomplete(dataObj).data("ui-autocomplete")._renderItem = function( ul, item) {
+            return $('<li class="form-control col-lg-4 text-white bg-dark" ></li>').data('item.autocomplete', item ).html( item.label ).appendTo( ul );               
+        };
+    });
+});
+
+ 
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
