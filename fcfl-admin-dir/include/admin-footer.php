@@ -32,9 +32,9 @@
         <li class="adjustments-line">
           <a href="javascript:void(0)" class="switch-trigger background-color">
             <div class="badge-colors text-center">
-              <span class="badge filter badge-primary " data-color="primary" onclick="modifySession('primary')"></span>
-              <span class="badge filter badge-info active" data-color="blue" onclick="modifySession('blue')"></span>
-              <span class="badge filter badge-success" data-color="green" onclick="modifySession('green')"></span>
+              <span class="badge filter badge-primary " data-color="primary" onclick="modifySessionSidebar('primary')"></span>
+              <span class="badge filter badge-info active" data-color="blue" onclick="modifySessionSidebar('blue')"></span>
+              <span class="badge filter badge-success" data-color="green" onclick="modifySessionSidebar('green')"></span>
             </div>
             <div class="clearfix"></div>
           </a>
@@ -182,7 +182,7 @@
   <script type='text/javascript'>
             /* If function used, sends new data from input field to the
                server, then gets response from server if any. */
-            function modifySession (newValue) {
+            function modifySessionSidebar (newColor) {
                 /* You could always check the newValue here before making
                    the request so you know if its set or needs filtered. */
                 var xhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
@@ -192,7 +192,7 @@
                         console.log(usedData);
                     }
                 };
-            xhttp.open("GET", "include/modifySession.php?newData="+newValue, true);
+            xhttp.open("GET", "include/modifySessionSidebar.php?newData="+newColor, true);
             xhttp.send(); 
             }
         </script>
