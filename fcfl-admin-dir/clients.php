@@ -107,7 +107,6 @@ if(!isset($_SESSION["aid"])) {
             </div>
             <div class="modal-body">
                 <form class="form" action="" method="post">
-                    <input type="hidden" name="type" value="add">
 
                     <table  class="table">
 

@@ -179,6 +179,23 @@
       });
     });
   </script>
+  <script type='text/javascript'>
+            /* If function used, sends new data from input field to the
+               server, then gets response from server if any. */
+            function modifySession (newValue) {
+                /* You could always check the newValue here before making
+                   the request so you know if its set or needs filtered. */
+                var xhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        usedData = this.responseText; //response from php script
+                        console.log(usedData);
+                    }
+                };
+            xhttp.open("GET", "include/modifySession.php?newData="+newValue, true);
+            xhttp.send(); 
+            }
+        </script>
 
 
 </body>
